@@ -1,182 +1,292 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Edicola</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Edicola">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1c1b19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap">
 <style>
-:root{--bg:#f6f5f2;--card:#fff;--fg:#1d1c1a;--mut:#77736b;--line:#e6e2da;--acc:#3d5afe}
-@media (prefers-color-scheme:dark){:root{--bg:#121214;--card:#1b1b1f;--fg:#ecebe8;--mut:#9b978f;--line:#2a2a30;--acc:#8c9eff}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,"Segoe UI",sans-serif}
-.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px max(16px,env(safe-area-inset-left));border-bottom:1px solid var(--line)}
-.top h1{margin:0;font-size:18px}.top p{margin:2px 0 0;color:var(--mut);font-size:13px}
-main{max-width:520px;margin:0 auto;padding:12px 0 40px;display:grid;gap:18px}
-.post{background:var(--card);border-block:1px solid var(--line)}
-@media(min-width:540px){.post{border:1px solid var(--line);border-radius:14px;overflow:hidden}}
-.post header{display:flex;gap:10px;align-items:center;padding:10px 14px}
-.av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:700}
-.post header b{display:block;font-size:14px}.post header small{color:var(--mut)}
-.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:#000}
+/* Layout: una colonna da lettura, come un quotidiano del mattino in versione notturna */
+:root{
+  --bg:#1c1b19; --surface:#252320; --raised:#2e2b27; --line:#3a3631;
+  --fg:#eee8dd; --soft:#cfc7b9; --muted:#9a9286; --faint:#6f685e;
+  --clay:#d97757; --clay-soft:rgba(217,119,87,.14);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --text:var(--serif); --scale:1;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+.wrap{max-width:620px;margin:0 auto}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offset:3px;border-radius:6px}
+
+/* Barra in alto */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);
+  margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:12px}
+.bar .wrap.col{display:block}
+.brand{font-family:var(--serif);font-style:italic;font-weight:500;font-size:26px;letter-spacing:-.01em;margin:0;line-height:1}
+.brand b{color:var(--clay);font-style:normal;font-weight:400;margin-left:2px}
+.dateline{font-size:12.5px;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.iconbtn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--soft);font-family:var(--serif);font-size:18px}
+.iconbtn:hover{background:var(--raised)}
+.progress{display:flex;gap:3px;margin-top:10px;height:3px}
+.progress i{flex:1;background:var(--line);border-radius:2px;transition:background .3s}
+.progress i.on{background:var(--clay)}
+.bar .meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);padding:6px 0 8px;font-variant-numeric:tabular-nums}
+
+/* Saluto */
+.hello{padding:28px 0 8px}
+.hello .glyph{color:var(--clay);font-size:26px;line-height:1;display:inline-block;animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:rotate(0) scale(1);opacity:.9}50%{transform:rotate(25deg) scale(1.08);opacity:1}}
+.hello h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,8vw,40px);line-height:1.1;margin:10px 0 10px;letter-spacing:-.015em;text-wrap:balance}
+.hello p{margin:0;color:var(--soft);font-family:var(--serif);font-size:18px;line-height:1.5;max-width:34em}
+.stale{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--clay-soft);color:var(--fg);font-size:14px}
+
+/* Controlli */
+.controls{display:grid;gap:12px;padding:22px 0 6px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{flex:1;padding:8px 6px;border-radius:9px;font-size:13.5px;color:var(--muted);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--raised);color:var(--fg);box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--soft);white-space:nowrap}
+.chip[aria-pressed="true"]{border-color:var(--clay);color:var(--fg);background:var(--clay-soft)}
+.chip.toggle{margin-left:auto}
+
+/* Gruppi */
+.group{padding-top:26px}
+.ghead{display:flex;align-items:baseline;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.ghead h3{margin:0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.ghead span{font-size:12px;color:var(--faint)}
+.story{margin:18px 0 0;padding:16px 16px 4px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.story>.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.story>h4{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.2;margin:6px 0 2px}
+.story .post{border-top:1px solid var(--line)}
+
+/* Post */
+.post{padding:22px 0 24px;border-bottom:1px solid var(--line);scroll-margin-top:110px}
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.eyebrow .cat{color:var(--soft);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px;display:inline-flex;align-items:center;gap:6px}
+.eyebrow .cat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--clay)}
+.eyebrow .seen{margin-left:auto;color:var(--faint);font-size:11px}
+.badge{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);border-radius:5px;padding:1px 6px}
+.post h3{font-family:var(--serif);font-weight:500;font-size:calc(25px*var(--scale));line-height:1.18;letter-spacing:-.01em;margin:8px 0 10px;text-wrap:balance}
+.summary{font-family:var(--text);font-size:calc(18px*var(--scale));line-height:1.55;color:var(--soft);margin:0 0 16px}
+.post.is-seen h3{color:var(--soft)}
+
+.media{position:relative;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .track::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;display:grid;place-items:center;aspect-ratio:4/5;max-width:100%}
-.slide img,.slide video{width:100%;height:100%;object-fit:contain;display:block}
-.dots{display:flex;justify-content:center;gap:5px;padding:8px 0 0}.dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--acc)}
-.cap{white-space:pre-line;margin:8px 14px 4px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
-.cap.open{display:block}
-.orig{display:inline-block;margin:0 14px 14px;color:var(--acc);font-size:13px;text-decoration:none}
-</style></head><body>
-<div class="top"><h1>Il tuo feed, senza Instagram</h1><p>Prova con 9 post · tocca il testo per leggerlo tutto · scorri le foto di lato</p></div>
-<main>
-<article class="post">
-<header><span class="av">F</span><div><b>Factanza</b><small>@factanza · 12/11 17:34</small></div></header>
-<div class="track"><div class="slide"><video controls playsinline preload="metadata" poster="https://scontent-ssn1-1.cdninstagram.com/v/t51.82787-15/900958348_1434771984952113_242955848031625239_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODkxODc2NjU0MjIyNTMxNjE0MzQ3NzE5NzgyODU0NDc%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEwODAuc2RyLnZpZGVvX3VzZXJfdXBsb2FkZWRfdGh1bWJuYWlsLkMzIn0%3D&amp;_nc_ohc=A0EyM1kXUtoQ7kNvwHy7RsH&amp;_nc_oc=Adpk2EBmm2ihAxabK2sndhdGCtCD8YOijsZI1yr921MLLybratpJWoVDLhuw6_tS0qo&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-ssn1-1.cdninstagram.com&amp;_nc_gid=Xgh9WuhJOJaobOgVXqRwIQ&amp;_nc_ss=7a20f&amp;oh=00_AQTXazhqfEedoTp90T9A_esA7FhbSsaK7D2ZJpFMphUlTQ&amp;oe=6AFC0A8D" src="https://scontent-ssn1-1.cdninstagram.com/o1/v/t2/f2/m86/AQMlTNixwa6IDOnaBVCNJKA1e65EwRjaTc456dLimqrrI7aBFUkGcHoC8MFfkEYGPxFXCqyqIMKq7jdu8pbl2oNACjNvpnbmUVHN16c.mp4?_nc_cat=109&amp;_nc_sid=5e9851&amp;_nc_ht=scontent-ssn1-1.cdninstagram.com&amp;_nc_ohc=xzkfZObgKr0Q7kNvwGfGJ_S&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTQzNDc2OTU0MTYxOTAyNCwiYXNzZXRfYWdlX2RheXMiOjAsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxNzcsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&amp;ccb=17-1&amp;vs=31d1aa56eca3553&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9CRDk0MDY0NjE1QTg0MURDQUM4OTMxRkQ2OUEzQTYyRF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzg4MURCNzk4NzE3MzREQzNCOTE2QTMyOTJFMTIyNDAyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACag9eaNyrqMBRUCKAJDMywXQGYgAAAAAAAYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA&amp;_nc_gid=Xgh9WuhJOJaobOgVXqRwIQ&amp;_nc_ss=70980&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;oh=00_AQQsxLbC-sLz3VIhkzvggLvbmzhFOhjBUgbX6zVXSp7AQg&amp;oe=6AF8148E"></video></div></div>
-<p class="cap">Il Parlamento europeo ha appena approvato una misura che consentirà il voto per delega alle madri eurodeputate. Cosa vuol dire? Le europarlamentari neomamme o incinte potranno partecipare alle votazioni anche a distanza, delegando un collega, e quindi potranno continuare a svolgere la loro attività di rappresentanza dei cittadini e delle cittadine che le hanno elette. 
+.slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/5;display:grid;place-items:center}
+.slide img,.slide video{width:100%;height:100%;object-fit:contain;display:block;max-width:100%}
+.count{position:absolute;top:10px;right:10px;background:rgba(20,19,17,.72);color:var(--fg);font-size:12px;padding:3px 9px;border-radius:999px;font-variant-numeric:tabular-nums;pointer-events:none}
+.dots{display:flex;justify-content:center;gap:5px;padding:10px 0 0}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--line);transition:background .2s,width .2s}
+.dots i.on{background:var(--clay);width:14px;border-radius:3px}
 
-La decisione dovrà ora essere approvata da ciascuno Stato membro secondo le singole regole costituzionali. 
+.more{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--raised);border:1px solid var(--line);color:var(--fg);font-size:14px;font-weight:500}
+.more svg{transition:transform .2s}
+.more[aria-expanded="true"] svg{transform:rotate(180deg)}
+.caption{display:none;margin-top:14px;padding-left:14px;border-left:2px solid var(--clay)}
+.caption.open{display:block}
+.caption p{font-family:var(--text);font-size:calc(17px*var(--scale));line-height:1.6;color:var(--fg);margin:0 0 .8em}
+.caption .orig{display:inline-flex;gap:6px;align-items:center;margin-top:4px;font-size:12.5px;color:var(--muted);text-decoration:none}
+.caption .orig:hover{color:var(--clay)}
 
-Eravamo proprio a Bruxelles stamattina durante il voto, e ne abbiamo parlato con l’eurodeputata di Alleanza Verdi e Sinistra @cristina_guarda, tra le promotrici della legge.</p>
-<a class="orig" href="https://www.instagram.com/p/DfpmEWkp3-k/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">W</span><div><b>Worldy</b><small>@worldy.it · 12/11 15:31</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/898652789_18474454318191989_6667594893177364820_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=1&amp;ig_cache_key=NDAyODg1OTA0OTcyNzUwOTUyNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=WReKIlmZAoQQ7kNvwEUXA56&amp;_nc_oc=AdoAyuPamc_EwwZIw5BI2Az9rEMmTG8IuCe8A7CbyXjO3OgPcaYmauQIlMbvz62yGeY&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQQ1Bd5f6bFbm1XRxNwejUk2oDGVo3O0sXx0-SYI3iiaPg&amp;oe=6AFC0915" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/893953089_18474454333191989_3658033819125082532_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=1&amp;ig_cache_key=NDAyODg1OTA1MTY3Mzg2Nzk4Ng%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=yu3NTw3QBFsQ7kNvwEE9AZd&amp;_nc_oc=AdrHtUXEfytLz4vB-Q7wGXr2axUiz0FFRIy9JOsbXg4-QGYCY6fOC7UgEwLgKAztdUk&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQTbECWb49z0ICehUdREf9fkUq15O8OtniLBS6azhKNQ1w&amp;oe=6AFBFCBE" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/899646431_18474454309191989_8650761153879741134_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=1&amp;ig_cache_key=NDAyODg1OTA1MzAxNTg0ODk1OA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=w877D5FcxhcQ7kNvwHZophA&amp;_nc_oc=AdoDAl75N_JvSbSV_fOdY4uvMkl1VAsK1xsBuysJosCTQdC66-XXFkQqbWLAcS41A2g&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQQpMippt6uTRR9TfVqNtFGAiIPo4bK-dSOTMZzsqZ_C-g&amp;oe=6AFBF5C4" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/890616622_18474454297191989_3529226148174661608_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=100&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODg1OTA1MzE1ODUzNzM1Mg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=Y8PaSQDIV-kQ7kNvwGO4RBV&amp;_nc_oc=AdoZXcjPD35TvwCs2qaNd5Eu1uk0bnj3IgDj5XYV8BD8kEJVQebieii93113DAL0-pk&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQQ4VE-52gNPb4n8uTZM9ZviyugCbV3XMFWrwUiOsL46AQ&amp;oe=6AFC282C" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/899331877_18474454306191989_6529473838959990569_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=101&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODg1OTA1NDY5MzU0ODM0MQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=K5bS3RR0GQ0Q7kNvwE5dhCJ&amp;_nc_oc=AdqnTo1RcdiDOXfUp_-exjK5p1Bi96jAgN1RJt6GanStfkonLtuUZpdRWcqNlzS_ItM&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQSXFjlpbkdNBTFJSRk35AFUELx7twWnJb4AzphI15YnVQ&amp;oe=6AFBFE94" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-gmp1-1.cdninstagram.com/v/t51.82787-15/898767712_18474454336191989_4760743525414017780_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODg1OTA1NjI4NzU4NTA2MA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=b5h_M53W6cAQ7kNvwGlMjtu&amp;_nc_oc=AdpGR6Y_gvb26kiuHNDHKzW8WeaivtonplEORIjBoq4ClFONEbwfniLeUFNQDnRdv_c&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-gmp1-1.cdninstagram.com&amp;_nc_gid=31tFqNuxQOxWmFsnuZC4NQ&amp;_nc_ss=7a20f&amp;oh=00_AQR3nttBfE1j_4fseJmCf8k5hofo50eEkWOESpYgWUff-g&amp;oe=6AFC1D38" alt=""></div></div><div class="dots" data-n="6"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">Segui @worldy.it per altri contenuti come questo. 
+.end{text-align:center;color:var(--faint);font-size:13px;padding:40px 0 60px;font-family:var(--serif);font-style:italic}
+.end b{display:block;color:var(--clay);font-style:normal;font-size:20px;margin-bottom:6px}
+.empty{padding:40px 0;color:var(--muted);text-align:center;font-family:var(--serif);font-size:17px}
 
-La polemica sul libro di storia Trame del tempo 3, pubblicato da Laterza e destinato alle scuole superiori, è tornata al centro del dibattito politico dopo che il ministro dell’Istruzione Giuseppe Valditara ne ha chiesto il ritiro per alcuni passaggi dedicati al governo Meloni.
+/* Pannello caratteri */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);border-radius:18px 18px 0 0;
+  padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -10px 40px rgba(0,0,0,.4)}
+.sheet .wrap{display:grid;gap:14px}
+.sheet h4{margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.row{display:flex;align-items:center;gap:10px}
+.row .seg{flex:1}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <div>
+      <h1 class="brand">Edicola<b>✻</b></h1>
+      <div class="dateline" id="dateline">&nbsp;</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="fontBtn" aria-label="Carattere e dimensione del testo">Aa</button>
+  </div>
+  <div class="wrap col"><div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="meta"><span id="seenCount">&nbsp;</span><span id="readTime"></span></div></div>
+</header>
 
-La vicenda, però, nasce nel giugno 2025, alcuni quotidiani italiani hanno segnalato alcuni paragrafi del manuale che collegano Fratelli d’Italia all’eredità del fascismo. 
+<main class="wrap">
+  <section class="hello">
+    <span class="glyph" aria-hidden="true">✻</span>
+    <h2 id="greet">Buongiorno, Eduardo.</h2>
+    <p id="intro">Sto aprendo l'edizione di oggi.</p>
+    <div id="stale" class="stale" hidden></div>
+  </section>
 
-La deputata di FdI Augusta Montaruli critica duramente il testo, accusandolo di diffondere informazioni false e giudizi politicamente orientati.
+  <section class="controls" aria-label="Come vuoi leggere">
+    <div class="seg" role="group" aria-label="Ordina">
+      <button id="v-notizia" aria-pressed="true" data-view="notizia">Per notizia</button>
+      <button id="v-categoria" aria-pressed="false" data-view="categoria">Per categoria</button>
+      <button id="v-pagina" aria-pressed="false" data-view="pagina">Per pagina</button>
+    </div>
+    <div class="chips" id="chips"></div>
+  </section>
 
-Il caso arriva così al ministero dell’Istruzione, che chiede all’Associazione Italiana Editori di verificare la correttezza dei contenuti. L’associazione chiarisce però di non avere il compito di controllare i testi pubblicati dagli editori associati.
-
-La polemica si riaccende qualche giorno fa, quando il parlamentare Galeazzo Bignami, sempre di Fratelli d’Italia, torna a contestare il libro. 
-
-Successivamente Valditara interviene pubblicamente, giudicando quelle affermazioni inattendibili e sostenendo che il manuale rischi di favorire l’indottrinamento degli studenti. Il ministro invita quindi la casa editrice a ritirarlo, ritenendolo scientificamente inadeguato.
-
-La risposta di Alessandro Laterza, amministratore delegato della casa editrice, è negativa. Secondo l’editore, un ministro non dovrebbe intervenire per chiedere la modifica o il ritiro di un libro scolastico, indipendentemente dal suo contenuto.
-
-#worldy</p>
-<a class="orig" href="https://www.instagram.com/p/DfpYknYCNR_/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">F</span><div><b>Factanza</b><small>@factanza · 12/11 12:56</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585674_18441061372197715_2548163386196256514_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQyNjA3MjIzMjI4NA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=Fm6Y078qIOMQ7kNvwHTvKpI&amp;_nc_oc=AdrflUXcVV746jchoJRWvKnzyx7nuNDphkqqHCwucxu0XYs0tMNA1CsvBMtAr7GtGnI5u8biEymqVJofYTmsZ1d5&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQSx1-TgBpcv3-rPMRKOAYp6VIyZLA3BW9OPVYeuIafU9g&amp;oe=6AFC11A6" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585780_18441061438197715_3676729040801835658_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=108&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQyODA5NDA3MDU0NQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=hc2TnF_bOLYQ7kNvwHwrrGr&amp;_nc_oc=AdrYhECCMtvTYHnKQErmBpC0Q1G7B5T8lEAaqONhTh_HDnnzZJUfxp_AsEarmM4_vj3YGLVy68VFtzAfPEpyOlc3&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQQN8HzwwckqoB-bBtmVNo2YNXhx04_eun7MgtrFK7QHBA&amp;oe=6AFC1D78" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585707_18441061408197715_1671059148128449497_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQyODMyMDQ2ODA1Mw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=hPvTod6vXbsQ7kNvwFgVRKZ&amp;_nc_oc=AdpoCMUwR3i08oXz42Q6a_yTLZ8PIrP4if0cLv8vlNEgHD1cD1YSewAMv4L1879EFap4hCB4YSHLLTxiPEXrivRh&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQSxfkG8LjP1wNF7R2uACSDQn33Y7VZZH4uzNs8hFIVAWw&amp;oe=6AFC24F0" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585596_18441061435197715_5832231975830183690_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQyOTMwMTkxOTU0Mw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=XD9m0EXsnAwQ7kNvwEWGUXH&amp;_nc_oc=AdqhG26AeU-0hmNllZeOQdFLsHi_2kMt5fhgxcT-ZWdUwmuqZEEblt-t0WswWeT5MzqqF72Wgrdf7qsAfrOeizV6&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQTgRDKJjkeBVAvqKt6MTy8GcKmaOGS2QQAE-kr8D4JleQ&amp;oe=6AFC1805" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585535_18441061384197715_4137066088901490009_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQyOTY0NTg5ODg2MQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=VV0K6Y01CBgQ7kNvwEFai-G&amp;_nc_oc=Adr3FLr48kGqbDQpMTOyz6AcxX-45ev3mpCPiDD9nEBr3rBJncD6Zb_9rDuAPySGUVvmwCusAUlW0NIlJhazqyLM&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQR0dD5mkdbLwfDWKqks61P7GimLmo9Du9ClN3xhDxLeSw&amp;oe=6AFC0F87" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585811_18441061405197715_1297535766800454512_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQzMTE2NDI3NjAwNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=tuuJtR-SAOsQ7kNvwGLFxuy&amp;_nc_oc=AdrH9seaZEP_bqmWXQe0GGwaVNkok-78heea2L2svpEQBZhQ4dbGziO3bWCScL6IHA-yZL9Ft9j1AAvO0KeLocMF&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQQtgpAQMXTrQ2yVAs83hHySMJu5Vf3T8Irct7aRwpg2eQ&amp;oe=6AFBF3D4" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585691_18441061420197715_7464224294054598575_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQzMTM0ODc2MDU5Nw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=w1qocCWxKt0Q7kNvwGaVkZq&amp;_nc_oc=AdpgAoIQlZcJG6WqHSDcjtibUdAf5D2169umC5UY90rgit6CeQxscXOMElGwXTeohaCdpEHVM1_QxQGUYpxVfLPr&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQSefLh_VotPrmXcj8NekIPQMXdUIvvMXoAzqVSYVi8GIg&amp;oe=6AFC0016" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585748_18441061417197715_1880748363915457261_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=110&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQzMTYwODg2OTk4Ng%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=FKY_vVMuSTgQ7kNvwFXhwvi&amp;_nc_oc=Adq8o0oravuJcYvMnX8JpaBD_UR-tWW2_bEd9IjmRYM7qUBBy-7_WP1oi4zk6tHCgHVB-rWWSmtr8InWW2837FjN&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQQmouCSPx57ULdJCq2n9KImW4686YvhJ1px4kxPXqyzpA&amp;oe=6AFBFD42" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585601_18441061453197715_1306561521540912343_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=104&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQzMzI5NDg5MjU5Mw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=529rt7KXmxEQ7kNvwEC14wx&amp;_nc_oc=AdoBcRBH54JJoJEEZSiAZFtNmkAA8oINzv7WzZovNtmLkBd_Jy9_AhdOyXDDdfuP6Ru7zx3nuV31fCV8mifWdnkk&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQSnnWO3b3iMtUWjoPsObEpbZqhZaQoDrYGQsXoMzZuVvg&amp;oe=6AFC0147" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585612_18441061468197715_3277829461587365714_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQzMzc0NzkzNTMzMg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=ugoYYI2Ta3EQ7kNvwFBDyOd&amp;_nc_oc=AdrNZBv_kafjN4TNHlrKqACYABV1duIDmvB7od6JbuYHSwEDlm_yLsgJ4k5pRK_XKfZGblcnzGNZ4KTD1unxDTNy&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQRKBbYWarcgKv1pOgkI6dfFgJRse0h2QAtE-350VaZ4mg&amp;oe=6AFC256C" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-itm1-1.cdninstagram.com/v/t51.82787-15/902585561_18441061618197715_4316127409827147556_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODc3NjQ0OTgzNzI3MjA1Ng%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=34JJsyCAU1YQ7kNvwFLqLDQ&amp;_nc_oc=AdoBXk2M2bdNj5bnoxxQAf8rACuoTOYNbmKHeFVW2t4nmJ3GMjU6Nbind1Lcf3XIEWT9RP2jvDHIiDNDIWbsIsgo&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-itm1-1.cdninstagram.com&amp;_nc_gid=v56nn7MC9ejD2lFbBv7btA&amp;_nc_ss=7a20f&amp;oh=00_AQQs39OGGFVLULDqmGZDYvIZx2M0FvfvZyuiiwIn7NBUyQ&amp;oe=6AFBFAD8" alt=""></div></div><div class="dots" data-n="11"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">La vera sfida non è insegnare alle macchine a replicare il nostro lavoro, ma preservare lo spazio per ciò che le macchine non potranno mai toccare: l’intuizione, l’imperfezione e il vissuto personale dietro ogni scelta creativa.
-
-È da questa idea che parte il nuovo corso di @factanza.academy “AI per umani”, pensato per capire cosa delegare all’intelligenza artificiale e come farlo, riuscendo ad automatizzare i processi più ripetitivi che tolgono tempo al lavoro e alle attività che ci interessano davvero.
-
-Non serve saper programmare o saper usare già l’AI per partecipare: il corso è pensato per partire dalle basi, consolidando l’aspetto teorico con giochi, tutorial pratici, confronto con i docenti e live per commentare insieme gli esercizi.
-
-Se prima di iscriverti vuoi parlarne e sciogliere ogni dubbio, al link in bio trovi più informazioni sul corso e la possibilità di prenotare una consulenza con il team di Factanza Academy.
-
-Ti aspettiamo!</p>
-<a class="orig" href="https://www.instagram.com/p/DfpG3xogCBJ/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">W</span><div><b>Worldy</b><small>@worldy.it · 12/11 10:42</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/899246455_18474408589191989_8860954216983869375_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=110&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExMzE3MzA3NTE2NQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=ZyukT4MMHd4Q7kNvwGTDC_D&amp;_nc_oc=AdqT6UEYVZJ92pUX-sanM4FpN4LTvEjkYy6jgbbivOvffdWGfcv5bOu4IWXBp5e3eF6zdzeph0jC6z0q00fBl48G&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQQvXuZ6pMF2eAFLhhJwmKpMfcUQRK9YUC-wE66xrL7tsw&amp;oe=6AFC179C" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/902503170_18474408664191989_3378120649002526923_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=104&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExOTc3NDgzNTIwNw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=_zwFsNsc0A0Q7kNvwFhs45d&amp;_nc_oc=AdrBjvK1UIV6RWGYSGn4Jte-eipmpev164FFMzIgEAzl6SkdLo7tboMPnCpH08QllTW19gsOUOLbKbB6Ll_px7zd&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQRBp3YpoYCINxunhDLRA2EmTfuQ0ip7KCCt-QleATD8OQ&amp;oe=6AFC1A1E" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/900385805_18474408607191989_5634323190443169627_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=110&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExNjIzNDc2NzI4OQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=OQyzEiaiNo0Q7kNvwEjCyvM&amp;_nc_oc=AdqOWrPH94eET6vQzgkn3kj1pKq_cmIC-1gVfLlqz91vSGYdwU5wZE9vtZqovXA_CdWaY2WzniYDdP9pODATdRqy&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQTq1Mhu6OmN4nw6t49CCqC4RgKLRMsG4wI3C2uNx05TOA&amp;oe=6AFBFC60" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/905618727_18474408616191989_6096738345049634442_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=111&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExNzI1ODI1NTc0NA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=phHWCXwo0CEQ7kNvwGKvd63&amp;_nc_oc=AdqSTV09fWZAYFGQemUgrfQ29dwevlHiErcHagmKX4tuiKDBAS8vACJsiAW-s963TNhBvdvbomJlmImdlZzGQ2qm&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQTQrnIrtXOIQw52ohhFHw8TigZhcxdZowC5fm9oqvfnrQ&amp;oe=6AFC0F9B" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/896777843_18474408637191989_2481762712152922351_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExNzg3MDU0NDY5MQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=vUrhVoBNeNkQ7kNvwFLKVkW&amp;_nc_oc=AdqW2-VFTxsvDKIjUAte95oZsfjmnxv09b-6BbVd_t9YVKaRHOeZ4Z82CdSr1uQC84p2azU0ragtkHiwUJKuR2o5&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQRJTztg2WEu-t9MwZ07Hb0yOYJwKZFaRvpdHzgnkm5kEQ&amp;oe=6AFBFFD7" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/902246570_18474408631191989_6678071626158324955_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=111&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExOTM4MDY0MjY3NQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=ktZyurYvh0gQ7kNvwHCQJ7W&amp;_nc_oc=AdplziEec8XH9UO-voOo2l5j48f_6qSteAiKpRdlywCrjq73Utg4R6gOZtHevY1BbXMHYE-Qy_ZjicyB0ucbxiQd&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQSu_1EeVtE8YadLx2LuicOyDFEdCzF9WAcE6nbHiR41tg&amp;oe=6AFBF8D5" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/894074158_18474408604191989_9212859563300933956_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=106&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzExOTg1ODc1OTk4OA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=Qm30IUgoLYUQ7kNvwE7qxGc&amp;_nc_oc=AdpSDQfNBrsJ10t8o1Oq_QTBRJVjLg-C5Uy5pT93LGRee120SetJTyuB3JbaXGhJFRs-DH6wu_dBReGakfacxJ8o&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQTTYF0fs-Z6GDdhmwJIAcUW9-a_hYn4bA86264YebXALA&amp;oe=6AFBFC70" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/896375424_18474408691191989_2697281547270828292_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=111&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzEyMTczNzY3NTkzNw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=nrwp8jVIRrgQ7kNvwHFWC4m&amp;_nc_oc=AdrKnOILxAOBoat3Ep2raOeGRVWaLEWJkOUugJimuSnv6KozmJr7FQKe3xTeVRd5GRLKRcA9pWkx_7Hzz4VArw2W&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQQlf58xhKR2wPpX4MLrfpETyefBXSvf_vpByDgOQSDPKA&amp;oe=6AFC192E" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/893894673_18474408658191989_292496933760216498_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzEyMjk2MjQwNTYwMQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=FGvUjEPmDGIQ7kNvwHNfDSO&amp;_nc_oc=Adqb2N1GwATy62T5DSPcn2K80eIidHesJuYHlF1HsjV-byY-WVx2Um6Qb0mrWjvLFo3nivN4eTmZyyGInJ-G84SR&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQTSu63pwgklb5jhDGkhmPvlyifQnaoj9zPpYwWr9iLvRQ&amp;oe=6AFBF87C" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/893487924_18474408667191989_1144440123150494764_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzEyNDA1Mjg3NTI4Mw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=WMVdxeF5droQ7kNvwHEjFXi&amp;_nc_oc=AdooUhjPS-u_geXemMk4aIn1obmwDfMo3aYykzPrgYRmDPh9AvxXu50FVqluDPrWPpHzyz5ITo5UK4cvE2zjXqjy&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQR_uhBzm5Afmwaaeb9B3edki3ck1ifTn-AvtuSnN7F2-w&amp;oe=6AFC0905" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.flba1-1.fna.fbcdn.net/v/t51.82787-15/899646431_18474408862191989_3793489234999573832_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=108&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODcxMzIwODY0Mzc2MzI4NA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=Jf_-UjTj4qYQ7kNvwF17XKg&amp;_nc_oc=AdrUomEN237vLdpw6qGKZSo5QUjE5svybduuUAr_bBhVVMXLoeYN4t_DEToyCFhSd9a-aN_hHM9EtL11XqCDNz5H&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.flba1-1.fna&amp;_nc_gid=Qk_3GEYaDcab25_S0wFd0A&amp;_nc_ss=7a20f&amp;oh=00_AQSNf8cl1Q2ZNiX0PuJumjMraJBYqPSfvWSlZqtYKFvu8g&amp;oe=6AFC023D" alt=""></div></div><div class="dots" data-n="11"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">🗣️ @worldyfinance 
-
-A Bruxelles, invitati dal @pe_italia e @europainitalia, abbiamo seguito da vicino i giorni della presentazione del Digital Fairness Act. 
-
-È la proposta con cui l’Unione vuole riscrivere le regole sulle pratiche commerciali scorrette, a partire da quelle online, e arriva dopo un lungo percorso: la Commissione ne parlava già nel 2020 e ha raccolto pareri pubblici fino all’ottobre 2025. 
-
-Le organizzazioni della società civile chiedevano da tempo regole più severe, mentre una parte delle imprese digitali lo critica per le sovrapposizioni con le norme già in vigore. Per le aziende la Commissione stima costi di adeguamento intorno ai 680 milioni di euro l’anno. Ora la proposta passa al Parlamento europeo e al Consiglio, che potranno modificarla prima dell’approvazione definitiva. 
-
-Nel carosello, le principali misure spiegate una per una.
-
-#worldyfinance 
-#worldy</p>
-<a class="orig" href="https://www.instagram.com/p/Dfo3jRnCKX7/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">🤖</span><div><b>🤖La casa della AI</b><small>@ai__facile · 12/11 09:35</small></div></header>
-<div class="track"><div class="slide"><video controls playsinline preload="metadata" poster="https://scontent-waw2-2.cdninstagram.com/v/t51.82787-15/900735952_18148999039592800_2212642506530789585_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=104&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODY4MDA5NzY4NDkxNzU1MDE4MTQ4OTk5MDM2NTkyODAw.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&amp;_nc_ohc=AH5E0Bu5ZCwQ7kNvwE5i6aF&amp;_nc_oc=Adq1Uni4AZXF_NASK3SiJQJOhp2ME0e3Bl-nurSVozqV_6WeWqB6LzeH_NMrQJrMsZc&amp;_nc_ad=z-m&amp;_nc_cid=1479&amp;_nc_zt=23&amp;_nc_ht=scontent-waw2-2.cdninstagram.com&amp;_nc_gid=4DSaMgQi-6nm1xDL20GYDQ&amp;_nc_ss=7a20f&amp;oh=00_AQRfxERKK_08vfoRHCdHjqiIBpiSGGWRAod7HB6-ILDAtg&amp;oe=6AFC2528" src="https://scontent-waw2-1.cdninstagram.com/o1/v/t2/f2/m86/AQPYOdgD6Zs2Vl57GrSaf4X_Owh2uSxlXGAD9r3kyMh_-Yv0hpfDrtghRTuHo2taadEkiPzRumA6X_v_mjjcs_8So2GVc9DHRhZD8-o.mp4?_nc_cat=106&amp;_nc_sid=5e9851&amp;_nc_ht=scontent-waw2-1.cdninstagram.com&amp;_nc_ohc=BDUokJI2haYQ7kNvwFShilV&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTU1OTc0MzQzNjE5OTAxNiwiYXNzZXRfYWdlX2RheXMiOjAsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxMiwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&amp;ccb=17-1&amp;vs=f34843625ab57e0d&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9DNjk0RDk4OTI2NjI0RTgyOEQ1N0JEODVCNkY0MDU2Rl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0JGODVERjU4OTcwQzRDRkJCMzM3RkZGN0MwMTREMDU2X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbQ0aSXgqXFBRUCKAJDMywXQCgQ5WBBiTcYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA&amp;_nc_gid=4DSaMgQi-6nm1xDL20GYDQ&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;_nc_ss=70980&amp;oh=00_AQR1BokjLrM-FwOYMZ_zEoOMAI8koZ4_O2TzK7Pr9Eumnw&amp;oe=6AF8169F"></video></div></div>
-<p class="cap">In Norvegia più di 2.000 robot subacquei proteggono i salmoni d’allevamento sparando laser ai loro parassiti.
-
-Li produce Stingray, un’azienda di Oslo, e lavorano 24 ore su 24 dentro le gabbie in mare.
-
-Il nemico si chiama pidocchio di mare, un minuscolo parassita che si attacca al salmone e se ne nutre. Ne bastano 11 per uccidere un pesce piccolo, e in una sola gabbia possono vivere 150.000 salmoni.
-
-Finora la soluzione era pompare fuori i pesci e trattarli con acqua calda o getti a pressione. Un metodo così stressante che molti salmoni non sopravvivono.
-
-Il robot invece resta in acqua con loro. Due telecamere osservano ogni pesce che passa, l’AI controlla due fotogrammi per essere sicura di aver trovato un parassita e a quel punto parte un laser verde, da una distanza fino a 2 metri.
-
-Le squame del salmone riflettono il raggio. Il pesce continua a nuotare, il parassita no.
-
-Avresti mai detto che l’AI sarebbe finita anche nel salmone che ordini al sushi? 🤔</p>
-<a class="orig" href="https://www.instagram.com/p/DfovzQ4Mg0u/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">W</span><div><b>Worldy</b><small>@worldy.it · 12/11 08:00</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/899331876_18474319891191989_1367719762855646998_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODYyNDU0NTE3OA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=YIujYcHwYi0Q7kNvwEz3zbF&amp;_nc_oc=Adqp6m44Dw8AqD_6GL7isKXP12XK3c-VSq5U1DXao2XKiFrpyEt_5cVeyAFAFLB4Wv0&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQRoxGl_2y4eYAb5AyhH1nNOWtuvNrJC3ec3E6X2LHgHEg&amp;oe=6AFC05EE" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/901110437_18474319909191989_3753306434371820843_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=110&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzNzc1MjE2OTYwMg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=l8pVy5LjeFAQ7kNvwGNoqHr&amp;_nc_oc=AdojwBhxJbWwYydkYlIRJpFqPElCK1GGzLv049BvNuDsebD_CmYZ2BnTLF9XGRaTBfo&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQQb7gCm5Y4R4_VYT9yaMRSShQinTgcJLEEAHXPpYA54sw&amp;oe=6AFC0CD8" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/892209820_18474319900191989_4928862623687485910_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODQ3MzU4NjQyMw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=k39-v-0fwNkQ7kNvwHSohJr&amp;_nc_oc=AdoIbT6o4TMBF3kqI2eITJV3CLDTCGxpPXnUfSUgj2D_aDncGq8ZLAEcnBjzF19hYRQ&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-2.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQRPm6xKcexC1j64VKCgFOHGOoKJy4LP3DP5c-ZCUP_0Ow&amp;oe=6AFC06FE" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/900759519_18474320074191989_4190466230127636754_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODMzOTM2MTExOA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=VD2KLS6BLAkQ7kNvwFikZD8&amp;_nc_oc=AdoZxQvjYYy3O_2WYLXUD4c192anOmMfsa_8SrpP2AA0rTedpgwlfvB9Wo9VheB_Im0&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQS6QzQ939CVxDtyU2Gdryq4Roej8SYCaqc0Klc_O4P1xQ&amp;oe=6AFBF716" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/892342994_18474319927191989_162950124687466513_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzNzc1MjE3MDc5Mw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=3SPduSouhhAQ7kNvwGE0SiI&amp;_nc_oc=AdrgFLxzBgH4mMMHAiIwIZPZ3zaKCtsgB5LPAjWQ6aM_fzkWLfHfBQWv2jmUzmT22QU&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-2.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQRR63MM9RAKrmX8O9KSjKSclsyfQwf-XuV9cmrh1ZPx-g&amp;oe=6AFBFBF5" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/901879766_18474319933191989_8621022671627591350_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODU5OTQwMTEzOQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=Z7Z7f0IZbRMQ7kNvwHeHDXh&amp;_nc_oc=AdrxVe-NissPk2DnDfX1RDKQAxG_zZY08UjSXonqcOvBtKvmqM-wxKmk7K3JF0bJ7oo&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQQv02P0Vx-GfnHCBVrN-V5ozi0YrjJqCsCeJBWsXxTrhA&amp;oe=6AFC00EF" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/901636505_18474319945191989_126120898555330342_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODQ2NTIwNTI2Mg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=1unP6oJXrF8Q7kNvwFUWEhT&amp;_nc_oc=Adqs3ZLJAWKTFEJmI0jZeeMChR46HkQt_Bp3vPTEFbOYCifAlwlZO7CXbQ-UrT58V8E&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQTCWhs-KEgLN-I2dKjBrhy7fdKyfgXhAe1lDWm-rrCx_g&amp;oe=6AFC026A" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/896777844_18474319993191989_4885748390933486378_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODA3OTMyMDMwOA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=XO3J8St9E30Q7kNvwGODs4i&amp;_nc_oc=AdqbSiXMeTWQ6tl1qNqLQT_hJyCF1goIpjbVl9jR3jbpKjiABnonTZONXcwM4NUFnZA&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-2.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQSeY_lQ9kqOM841eUk44f-KTLs0_D4WEFh7JlmNQqFfXA&amp;oe=6AFBF738" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/899331881_18474319972191989_5571385730374562970_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=110&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODA3OTI5NTMwNw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=L_9bGBljd7UQ7kNvwGZqjpH&amp;_nc_oc=AdrRLfSLuYtc4G692Tsp9_1KGdCuUsRWi9ok5CvHVL6y9CYvIWP5nbm0jst5sZ1Cydk&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQTgKfjcm1F3W3KSn-_Tj8ypQ73iEpxkl56r4TnTnEzSVA&amp;oe=6AFC19C2" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/892558480_18474319957191989_2395047678968194167_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODA3MDkwNjUzMQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=iS-JxuXlcNIQ7kNvwGy9Gc9&amp;_nc_oc=AdrQyP7Q9ZVG-0rACX4bGalt-cg0XTrkN_WuInxsUJSjwDpQ0D6E4ylzSKgEPvVZPK4&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-2.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQSl8wIStEpbdOySpLaHVrbAP4lGIULoRoJ4BiBoXzrfrA&amp;oe=6AFC0029" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/901414094_18474320134191989_1344869903559801995_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=111&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODU5OTM3NjU3MA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=BZ_PUu5ckqMQ7kNvwGlcQqc&amp;_nc_oc=AdqJnLMAeZqQoXWeqW7laO0QlgI6qtvvYJ7HjeZI08LHCYE-2crsgbaOvvOiIQecoI8&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQQEPg1WvL_DHiW--pgtiOEu7O4crQKn0rS4kI2dvN7XfQ&amp;oe=6AFC27E9" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/900539381_18474320122191989_204406887337321620_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODM5ODA5NjE5OQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=jAqj5UiWxKQQ7kNvwHzze55&amp;_nc_oc=AdqUaiP8k2BLVEiRludpDcJ6qLk_kx2kOy3C5nVD_VB1EaMNztbDYiGfbDZGDw3_Q4M&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQQw6vYFPVmqA7KF3y8hO1fvBpBvcQA4bG4s9yEtmwTkaA&amp;oe=6AFC1318" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/897038689_18474320155191989_6045424848339192277_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=111&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODQwNjQ3NjQyMA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=iA9EWxyvC7QQ7kNvwFwkLVy&amp;_nc_oc=Ado-DrNMSLxctqvdJjpbk-0Oi9OgfCtZLQnM2ywyu_N9X8aCnvhtw6n4f3_BABt5nU0&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQSI79CGHrEscrVkezAE-7cK8ZQyTYWF0iMsDjIUhB2wjg&amp;oe=6AFC2869" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/896630694_18474320170191989_3398745422969844037_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODA3OTI4MTIyNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=uqJXPDbuVN8Q7kNvwExJuQ6&amp;_nc_oc=Adr-A5tZsD3MN6xRtGz8wScFwu0XgIze726vYiqOwSBiqYUccv2nR1VXiBfCD8QmVx4&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-2.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQRGhJBov0KZtSZ4OB1yhACGYwRrOKrzVg3_xJvU0Wqy4A&amp;oe=6AFC004D" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/896705718_18474320236191989_7672028562892364725_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=103&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODM2NDQzODQ4MTk3MDUwMw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjE2MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=dCf2qe6K5DwQ7kNvwHclSSf&amp;_nc_oc=AdqsLe6moUDje5emilZ9o1JQdsbrkN4lB5MAFXSBTJpJmQtcLacnOXnWjOXJvvwfSus&amp;_nc_ad=z-m&amp;_nc_cid=4&amp;_nc_zt=23&amp;_nc_ht=scontent-ord5-1.cdninstagram.com&amp;_nc_gid=Jmux-cWTmG3v85pZ6LPesw&amp;_nc_ss=7a20f&amp;oh=00_AQTujs5Kv9X7FdxYW8h8ceag8ypiB4xvYdHVOWHo6FNgYg&amp;oe=6AFC292B" alt=""></div></div><div class="dots" data-n="15"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">Segui @worldy.it per altri contenuti come questo. 
-
-Dopo gli allarmi bomba di ieri, 11 novembre, ricevuti da tante scuole italiane, Giorgia Meloni ha riunito a Palazzo Chigi ministri e vertici dei servizi segreti.
-
-Per la premier non c’è un pericolo concreto: le minacce servirebbero a creare paura e caos. Ogni segnalazione verrà comunque controllata. 
-
-Scorri il carosello per leggere le sue parole. 
- #worldy</p>
-<a class="orig" href="https://www.instagram.com/p/Dfok8wGCN_S/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">F</span><div><b>Factanza</b><small>@factanza · 11/11 17:01</small></div></header>
-<div class="track"><div class="slide"><video controls playsinline preload="metadata" poster="https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/901260918_2954493861601341_7910022477334253317_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=108&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODE3OTMzMzcyNTQ4OTgxMzI5NTQ0OTM4NTgyNjgwMDg%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEwODAuc2RyLnZpZGVvX3VzZXJfdXBsb2FkZWRfdGh1bWJuYWlsLkMzIn0%3D&amp;_nc_ohc=MJZGT5g4macQ7kNvwGCHzyA&amp;_nc_oc=Adp2ljUEcOvlof_EHfjjG7hgqKPvzipLcPOM8uPrUsXF1Zy--rO1RSlWJcY-YKz69hRd3ScrQrJ1cr65WNffqSvl&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent-ams2-1.cdninstagram.com&amp;_nc_gid=5kFkW8qQ25fQzgmj4y6liA&amp;_nc_ss=7a20f&amp;oh=00_AQRHVG3qRr9PPiBEqbpqhUOeAZ7E0QJ1kOWDHuS79QfVpw&amp;oe=6AFC03CF" src="https://scontent-ams2-1.cdninstagram.com/o1/v/t2/f2/m86/AQNsyiPtjFybdMWPTslE8BMt68eltJgkJpEXFojim33qU4yRHdq8gi1urIGouCDHoMX7PfjFDsHN68V8lwjQyj1ishrWOFJcGlV9Q0c.mp4?_nc_cat=111&amp;_nc_sid=5e9851&amp;_nc_ht=scontent-ams2-1.cdninstagram.com&amp;_nc_ohc=tmNoqoIlwwMQ7kNvwFCTLAB&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6Mjk1NDQ5MzU2NDkzNDcwNCwiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxNzMsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&amp;ccb=17-1&amp;vs=4fe2738fb7013ec6&amp;_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8xNEZDRURGRTYwMjM0QjQzOTFBRkFGMjU3REVDRjVBQl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzQyNDg4NzlCRkNDMzRDNkRBMTJGMjk2NURFRkFEREYxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbg6O62lMa_ChUCKAJDMywXQGWxDlYEGJMYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA&amp;_nc_gid=5kFkW8qQ25fQzgmj4y6liA&amp;_nc_ss=70580&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;oh=00_AQQj2YgmtI1kuXttqxoJWAx-dAv8gRR5_IVptRJ3yuYI2A&amp;oe=6AF80BC0"></video></div></div>
-<p class="cap">Molti manager e dirigenti che lavorano nelle Big Tech in realtà da anni limitano pesantemente l’utilizzo di social e cellulari ai propri figli, e nella Silicon Valley sono molto richieste alcune scuole che utilizzano un approccio completamente analogico.
-
-Sembra chiaro che le stesse persone che guadagnano dal nostro utilizzo compulsivo del mondo digitale poi ne riconoscano i pericoli e cerchino con le risorse a disposizione di farne stare alla larga i membri più vulnerabili delle loro famiglie: i bambini.
-
-Sui rischi dell’utilizzo di schermi e social c’è un dibattito aperto da anni, su cui per ora abbiamo indizi sempre più consistenti ma non ancora delle risposte nette. Nel frattempo, online sempre più persone stanno parlando di un percepito bisogno di maggiore “frizione” nelle proprie vite, in controtendenza all’offerta del mercato contemporanea, che sta cercando di offrirci vite sempre più facili, e per questo - forse - meno significative.</p>
-<a class="orig" href="https://www.instagram.com/p/Dfm98MGRwqV/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">🤖</span><div><b>🤖La casa della AI</b><small>@ai__facile · 11/11 11:05</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/901549558_18148900207592800_2031114247616965336_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=104&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDYxMTk4OTQ4MTAyNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=oPkET7xctA0Q7kNvwF2478l&amp;_nc_oc=Adpmqh-yosVoow97tGGKXZlqHHnDEfMwtbHZiOglYFSNLlfZKCCMjy9GoGdiYlOMCCA&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQRZKyjLObRwClfubIkptPJiRio9-3xSb3p2P51fMi-qbw&amp;oe=6AFC0B49" alt=""></div><div class="slide"><video controls playsinline preload="metadata" poster="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/899358222_18148900432592800_8809115920800442208_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDYzMjg0MTE5MTI4MA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuNzIwLnNkci52aWRlb19maXJzdF9mcmFtZV90aHVtYm5haWwuQzMifQ%3D%3D&amp;_nc_ohc=LgOGjlcJKBEQ7kNvwEl2Ux1&amp;_nc_oc=Adr4lPWupDzPJ3PA3fZlYDlSlcljNt_t-6z46iuaWUF4Vd8QVRWIcJG9KhZtbzw9vzc&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQS3rsF6GAs0tbsc_pHSvsIPzcSUQ3ncMyOwg3DmWyMOgA&amp;oe=6AFC02A6" src="https://instagram.falc1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQPy72tvsIkqDX5TgHAzbtgBWwQc50_thCrYBM-6Alj0XOqYVQEnkKJj4HKxi9EBSDR7i2lRehOlL86XG-qr7KCdUR86XOoVUewr5b8.mp4?_nc_cat=101&amp;_nc_oc=AdrRlpxIND8oPqPZ1XKaJO5RlEDjTB2Wvz91g02Y5CXF92ULWGS53MKdmMtKFUOOHgY&amp;_nc_sid=5e9851&amp;_nc_ht=instagram.falc1-1.fna.fbcdn.net&amp;_nc_ohc=Wps22V2mLDgQ7kNvwF2USW_&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0FST1VTRUxfSVRFTS5DMy43MjAuZGFzaF9iYXNlbGluZV8xX3YxIiwieHB2X2Fzc2V0X2lkIjoxODE0ODkwMDI1NTU5MjgwMCwiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMTQ2LCJkdXJhdGlvbl9zIjoyNCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&amp;ccb=17-1&amp;vs=91d628ae61a3cea9&amp;_nc_vs=HBkcFQIYTGlnX2JhY2tmaWxsX3RpbWVsaW5lX3ZvZC9GREY5OEIwNTBGNkE0RTZEQjk4M0NFOUYxMjUxMUUyNF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmwMXjjISVvUAVAigCQzMsF0A4btkWhysCGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHXuB2XEngEA&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;_nc_ss=70180&amp;oh=00_AQTcCnDqwmWlp88GASRV1N1ZVg-SwbLx80islv5SXLuYqQ&amp;oe=6AF81C27"></video></div><div class="slide"><video controls playsinline preload="metadata" poster="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/900735934_18148900348592800_26944744840282641_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=105&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDY0NjQ4OTQ5MDkzNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuNzIwLnNkci52aWRlb19maXJzdF9mcmFtZV90aHVtYm5haWwuQzMifQ%3D%3D&amp;_nc_ohc=iWhPs-zbhUgQ7kNvwE3T8bI&amp;_nc_oc=Adq1ywZki5o5WMDZPKQVGbjiEJhFFqHJFRCVAGi90dAx_Ry-HpA0UNCHYDoTwOTW54o&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQTZ_7VHWaOuCvDU6Pq1o-ih4v463nXq3FxDP8ko6z9ULA&amp;oe=6AFBFED5" src="https://instagram.falc1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQOjMFApbU_mLRoWn8c8dPZqhOWhmeLx7CflGDCIGgbc3k3bTBZCpRuYJLILT6MQc5aXre6D8IJREZcLcLgRWe3mQ6IdyTl2ZVETqnU.mp4?_nc_cat=110&amp;_nc_oc=AdrJKJsN58iBaluuNzjB8VaEHPg4KNDfnwRAiZehhUS9qbqHDnK2XFCwumzBFGZvZ08&amp;_nc_sid=5e9851&amp;_nc_ht=instagram.falc1-1.fna.fbcdn.net&amp;_nc_ohc=rl1lUTbkgfcQ7kNvwH_9cix&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0FST1VTRUxfSVRFTS5DMy43MjAuZGFzaF9iYXNlbGluZV8xX3YxIiwieHB2X2Fzc2V0X2lkIjoxODE0ODkwMDI3MDU5MjgwMCwiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMTQ2LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&amp;ccb=17-1&amp;vs=5e6db29fec55719e&amp;_nc_vs=HBkcFQIYTGlnX2JhY2tmaWxsX3RpbWVsaW5lX3ZvZC8zOURGNDE4REFFOTI0MTJDQTgyMUM0QUJCMjQ4NDJFOF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmwMyKm4SVvUAVAigCQzMsF0AkiDEm6XjVGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHXuB2XEngEA&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;_nc_ss=70180&amp;oh=00_AQSZfT_C4xsQ_E13wfQ0PDcODpOPrqxZiv42aN3qdw7f8g&amp;oe=6AF819D2"></video></div><div class="slide"><video controls playsinline preload="metadata" poster="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/898198816_18148900498592800_7115506383759595760_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDY2MzA0MDE3NDMzMA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuNzIwLnNkci52aWRlb19maXJzdF9mcmFtZV90aHVtYm5haWwuQzMifQ%3D%3D&amp;_nc_ohc=1hWPuaYMZ9EQ7kNvwFGcF9q&amp;_nc_oc=Adr97DQ2yWlNSqtFy4W9l-3MKoOVDoYcVoTqV2uA_NN-XmSrcMADB8ysGdp_SCc_ywE&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQQf76hFpnImkeuWdloJVxWRC4SXnx0L-xN3-eVtBRvr6A&amp;oe=6AFC1D05" src="https://instagram.falc1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQPuSqtBoAtyg4YDKk7KQUuRwbVAQ6MyofocFTPM0oZvvuEDtV-77_rmwpWn0PHMr5sEQqR9JR8trz6q6J-hndfKkk-yq1rzuLvLV0c.mp4?_nc_cat=101&amp;_nc_oc=Ado1EKAXnborBRCDrPsdEorKTOPbt-8qC-va_sAwuyJKb3UdBkPPS0FflxK6PTUatsM&amp;_nc_sid=5e9851&amp;_nc_ht=instagram.falc1-1.fna.fbcdn.net&amp;_nc_ohc=nt2T-wE-l0QQ7kNvwGe2tH7&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0FST1VTRUxfSVRFTS5DMy43MjAuZGFzaF9iYXNlbGluZV8xX3YxIiwieHB2X2Fzc2V0X2lkIjoxODE0ODkwMDI5MTU5MjgwMCwiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMTQ2LCJkdXJhdGlvbl9zIjoyNSwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&amp;ccb=17-1&amp;vs=2ac891df1977fe2c&amp;_nc_vs=HBkcFQIYTGlnX2JhY2tmaWxsX3RpbWVsaW5lX3ZvZC9BQzEwQzExN0JEQzM0RTFDOUM4QTZERDFBRERDNEU4OF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmwImOr4SVvUAVAigCQzMsF0A5IgxJul41GBJkYXNoX2Jhc2VsaW5lXzFfdjERAHXuB2XEngEA&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;_nc_ss=70180&amp;oh=00_AQS1-CPEZZ_UoxZCSWSh-xLbOjO7hNnQiYnZX3hEWYx_UQ&amp;oe=6AF80FC3"></video></div><div class="slide"><video controls playsinline preload="metadata" poster="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/898998729_18148900495592800_3472625011996639911_n.jpg?stp=dst-jpg_e15_tt6&amp;_nc_cat=108&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDY4MzAzMDI1NzI4MA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuNzIwLnNkci52aWRlb19maXJzdF9mcmFtZV90aHVtYm5haWwuQzMifQ%3D%3D&amp;_nc_ohc=C6RQs5v72v8Q7kNvwGbTa3b&amp;_nc_oc=AdontwVo_VMB5gcL5CheEArYAKmltthR4_dIciHAFJly7gm4WmAiYvR4otUI5ucSHW0&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQQ2OD0biR9SHpOmODB54C1D83gSqPnVOmEPu5R50cDc4w&amp;oe=6AFC0804" src="https://instagram.falc1-1.fna.fbcdn.net/o1/v/t16/f2/m84/AQOIdJxqw9VE74voYgpD4NQtT2s2u-XXRKASfnR94ct0zDwDv1_CzBlQxbhAG-uYBmb2WnBF15G-rAMFiZ0LQRv8xwXNnWN_GfAB-4o.mp4?_nc_cat=105&amp;_nc_oc=AdpKJHbaLoIWfr-sU7Qe_5Jba4J75EikZFFxr47zGjJ0SEYAnEcVO-XwolMfGX-gUCc&amp;_nc_sid=5e9851&amp;_nc_ht=instagram.falc1-1.fna.fbcdn.net&amp;_nc_ohc=ejzqgtwkjRQQ7kNvwH7Kf3q&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0FST1VTRUxfSVRFTS5DMy43MjAuZGFzaF9iYXNlbGluZV8xX3YxIiwieHB2X2Fzc2V0X2lkIjoxODE0ODkwMDMxNTU5MjgwMCwiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMTQ2LCJkdXJhdGlvbl9zIjoyNiwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&amp;ccb=17-1&amp;vs=b1bdae9fad41068c&amp;_nc_vs=HBkcFQIYTGlnX2JhY2tmaWxsX3RpbWVsaW5lX3ZvZC80QTkyRUFCQjRDNDg0NTRCOTFENTNGQTUzNkJBRjcwMl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmwOH_xYSVvUAVAigCQzMsF0A6MzMzMzMzGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHXuB2XEngEA&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_map=urlgen_bucketless&amp;_nc_zt=28&amp;_nc_ss=70180&amp;oh=00_AQR4ribiwmmBRvOGgJSrrbtZOXLBATR6WL5TXoF43BvhDQ&amp;oe=6AF8356F"></video></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.falc1-1.fna.fbcdn.net/v/t51.82787-15/902100450_18148900219592800_4014216021703192589_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=109&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyODAwMDYxMjk3MTAwMjE3Nw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=-nbx17gn3VQQ7kNvwFDLBdG&amp;_nc_oc=AdoxMlrLKKOildy0QYEF0GIIKvaO9x2e8UMM52OQnJEoBr8hkXHRvCXn-6lWPXF6mgM&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=instagram.falc1-1.fna&amp;_nc_gid=r1z_KV71enNZlr2Rfou2UQ&amp;_nc_ss=7a20f&amp;oh=00_AQRBqwW-mBP8ZEDOyA37Qe0El_neH739ESnYrVoIiHLQwA&amp;oe=6AFC1DC6" alt=""></div></div><div class="dots" data-n="6"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">Adobe ha aperto Photoshop, Premiere e Illustrator agli assistenti AI. L’annuncio è arrivato ieri ad Adobe MAX 2026 e cambia il modo in cui si lavora alla grafica.
-
-Segui 👉 @ai__facile 
-
-Le novità principali sono tre.
-
-MCP nativo. Assistenti come ChatGPT, Claude e Gemini potranno collegarsi direttamente ai programmi Adobe e lavorare sui tuoi file. Tu descrivi il risultato, l’AI esegue le modifiche.
-
-Assistenti AI dentro le app. Premiere, Illustrator, InDesign e After Effects hanno ora un assistente integrato che capisce richieste in linguaggio naturale e porta a termine compiti in più passaggi.
-
-Più modelli AI insieme. Il nuovo Creative Agent di Adobe coordina Firefly, gli strumenti Creative Cloud e altri modelli AI per completare un lavoro dall’inizio alla fine.
-
-Sul palco hanno mostrato una locandina in Photoshop adattata a eventi diversi cambiando foto, testi e date, senza rifare la grafica da zero. In Premiere è arrivato anche Generative Remove, che elimina un oggetto dal video e ricostruisce lo sfondo.
-
-Una precisazione importante. Il collegamento MCP per ora è un’anteprima e la beta privata è prevista per inizio 2027. Gli assistenti dentro le app e Generative Remove sono in beta.
-
-Il lavoro manuale non sparisce, ma le parti ripetitive sì.
-
-Tu lasceresti a un’AI le chiavi del tuo Photoshop? Dimmelo nei commenti.
-
-#adobe #adobemax #aifacile</p>
-<a class="orig" href="https://www.instagram.com/p/DfmVYMyjP1-/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
-<article class="post">
-<header><span class="av">🤖</span><div><b>🤖La casa della AI</b><small>@ai__facile · 11/11 09:07</small></div></header>
-<div class="track"><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-1.fna.fbcdn.net/v/t51.82787-15/902158910_18148888663592800_3534461738074786842_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=106&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE2NDg1MTYxMzUzNA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=-qBeime-E9QQ7kNvwE71CYD&amp;_nc_oc=AdrQBAHAO06D2hnaavkyAmpcMusudOBMf8e1Ry83UnBcaF6WpSfG5MVTh09kfkXBUHU&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-1.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQQT9WZQhgluNNsdKKciK7dGIjbcn9nvEh-A6cX6rj9tEw&amp;oe=6AFBF427" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-1.fna.fbcdn.net/v/t51.82787-15/901530736_18148888654592800_405094643924125748_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE2NjIxMDUxMDEyMA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=8gjnz5iZ4XoQ7kNvwGpnYVP&amp;_nc_oc=Adrrylzu1oqx9c13Z7DuB2HThMg0XhIv1eFRdGJZnWugP9hlIq5boelj3qB6UNkblY8&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-1.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQQ1StlkymKoZ38MJI_g1Afy3TofV5ZVd_aMCHuvPOjJpw&amp;oe=6AFC25B2" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-2.fna.fbcdn.net/v/t51.82787-15/901197037_18148888672592800_3102642550755744600_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE2NjExODEwODc3OA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=m7qcrGpEB68Q7kNvwHmtRiL&amp;_nc_oc=AdrniPLDGAogYH4Ioy7QOLE8w73Ye8L13hAX2itrwAxy_8-TcXiDmuVCmuWT4zFfF88&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-2.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQQZ3lMRQ83_BGMsVO5cunBAp5AF_QXAww6WkoR62DybSA&amp;oe=6AFC18CC" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-2.fna.fbcdn.net/v/t51.82787-15/900480792_18148888687592800_1040401039263641332_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE2NzY1MzQ1MDMzMw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=__yQdKVPM7QQ7kNvwHd9hID&amp;_nc_oc=AdqTfjtHE6YSOHkdatK0SP84MJvxOawZRwRwh1pMEoYsFL3UfuOk_Tp1DcZzMZcOafs&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-2.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQRZFtRuMlUws6b78Q8jSW8lZEvZj-PecVwTLKIJbvOWCQ&amp;oe=6AFC0DAB" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-2.fna.fbcdn.net/v/t51.82787-15/900008750_18148888801592800_4342783425272811512_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=101&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE3MzMwNzE4NDAzOA%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=upEqgUxy2jAQ7kNvwHq17v7&amp;_nc_oc=AdoTJG01dV7U48Kw4jFR-fEIEeG-rE4lKgDd43XaPR_lNvkJLFhi1DDeU7NE6XBZeDk&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-2.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQQl1R9qwXKeCD_Peonrr8N7ESBsKZ406Z8JcAFG1SodQw&amp;oe=6AFC10DA" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-1.fna.fbcdn.net/v/t51.82787-15/901668678_18148888690592800_8658116732583748484_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=102&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE3MTA1MDYwMzczNw%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=WHmTmmrT90QQ7kNvwG-8rYe&amp;_nc_oc=Adp7nNGICjuX3G1JiF2SIYH8g2NAlunIGz-SsAA0dkdFELmx3npC1WKuqFFR90llHgA&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-1.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQSJWCt1ZUDvXgZW1D5G3Qvl1VR9FcFy3Ii35yh-efpRYw&amp;oe=6AFC04DF" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-2.fna.fbcdn.net/v/t51.82787-15/902714918_18148888729592800_2667413463284415949_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=107&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE3MTYyOTUzMTU0MQ%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=TtsfOGNH1BgQ7kNvwFlWZ5a&amp;_nc_oc=Adr7T8JlLrBQivG36Y7pdAqt_bo2fdftii5OjdadW7I69kyjdBzt66iETdIpXi4MZpE&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-2.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQT0gaFxyRuPONY62sfpJbxvhqvLUY8B1UX3NMMteXCNIg&amp;oe=6AFC102D" alt=""></div><div class="slide"><img loading="lazy" referrerpolicy="no-referrer" src="https://instagram.fflr4-1.fna.fbcdn.net/v/t51.82787-15/900107297_18148888735592800_5772396513701773611_n.jpg?stp=dst-jpg_e35_tt6&amp;_nc_cat=108&amp;_nc_map=urlgen_bucketless&amp;ig_cache_key=NDAyNzk0MTE3MTg4OTY3NjcyNg%3D%3D.3-ccb7-5&amp;ccb=7-5&amp;_nc_sid=58cdad&amp;efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&amp;_nc_ohc=leAb9wGpyOoQ7kNvwEgZBCC&amp;_nc_oc=AdoaExu-ahu9uYyl5PweDWFCXB4aAK7z545uNPwuJbavtQVyfEekmKL0zcvNrn5CKsA&amp;_nc_ad=z-m&amp;_nc_cid=1093&amp;_nc_zt=23&amp;_nc_ht=instagram.fflr4-1.fna&amp;_nc_gid=x7cfpOeoCLf_rhOGFq4yfA&amp;_nc_ss=7a20f&amp;oh=00_AQQtusPPzcV0wKQ7AgHrPYJonGDFB8AL8X5bWiYca25vug&amp;oe=6AFC188D" alt=""></div></div><div class="dots" data-n="8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="cap">Claude può scrivere testi che i rilevatori AI non riconoscono. Basta insegnargli una volta sola quali errori evitare.
-
-Il trucco parte da Wikipedia, che ha una guida intera sui segnali della scrittura artificiale. Parole abusate, frasi fatte, elenchi sempre da tre, la solita formula “non è solo X, è Y”.
-
-Chiedi a Claude di leggerla, di adattare quei segnali all’italiano e di non usarli più. Poi con /skill-creator trasformi tutto in una skill personale chiamata humanizer.
-
-Da quel momento ti basta scrivere /humanizer prima di una richiesta e Claude applica le regole da solo. Email, post, curriculum, articoli.
-
-Nel carosello trovi i prompt da copiare, passo per passo.
-
-Una cosa va detta. I rilevatori AI non sono infallibili e nessun prompt garantisce lo zero ogni volta. Quello che cambia davvero è che i testi smettono di sembrare scritti da un robot.
-
-Salva il post e dimmi nei commenti per cosa la useresti.</p>
-<a class="orig" href="https://www.instagram.com/p/DfmH2O1HJf6/" target="_blank" rel="noopener">Apri il post originale</a>
-</article>
+  <div id="feed"></div>
+  <div class="end" id="end" hidden><b>✻</b>Per oggi è tutto.<br>La prossima edizione arriva domattina alle 5.</div>
 </main>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="Testo">
+  <div class="wrap">
+    <h4>Carattere del testo</h4>
+    <div class="seg" role="group">
+      <button id="f-serif" data-font="serif" aria-pressed="true" style="font-family:var(--serif)">Classico</button>
+      <button id="f-sans" data-font="sans" aria-pressed="false" style="font-family:var(--sans)">Moderno</button>
+    </div>
+    <h4>Dimensione</h4>
+    <div class="row">
+      <div class="seg" role="group">
+        <button id="s-1" data-size="0.92" aria-pressed="false">Piccolo</button>
+        <button id="s-2" data-size="1" aria-pressed="true">Normale</button>
+        <button id="s-3" data-size="1.1" aria-pressed="false">Grande</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-document.querySelectorAll('.cap').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('open')));
-document.querySelectorAll('.post').forEach(p=>{const t=p.querySelector('.track'),d=p.querySelectorAll('.dots i');if(!d.length)return;const f=()=>{const i=Math.round(t.scrollLeft/t.clientWidth);d.forEach((x,j)=>x.classList.toggle('on',j===i))};t.addEventListener('scroll',f,{passive:true});f()});
-</script></body></html>
+(function(){
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MESI=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const longDate=d=>`${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]}`;
+function ago(t){const m=Math.round((Date.now()-new Date(t))/60000);if(m<60)return `${Math.max(m,1)} min fa`;const h=Math.round(m/60);if(h<24)return `${h} ${h===1?'ora':'ore'} fa`;const g=Math.round(h/24);return g===1?'ieri':`${g} giorni fa`}
+function greeting(){const h=new Date().getHours();
+  if(h>=5&&h<12)return['Buongiorno, Eduardo.',['Prenditi il tuo tempo, il caffè prima di tutto.','Ecco cosa è successo mentre dormivi.','Le tue pagine hanno lavorato stanotte.']];
+  if(h>=12&&h<18)return['Buon pomeriggio, Eduardo.',['Una pausa giusta per recuperare.','Ecco quello che ti sei perso stamattina.']];
+  if(h>=18&&h<23)return['Buonasera, Eduardo.',['Ultimo giro prima di staccare.','Ecco la giornata, con calma.']];
+  return['Ancora sveglio, Eduardo?',['Due righe e poi a dormire.','Domattina ce n\'è un\'altra.']]}
+
+let data=null, view=store.get('edicola-view','notizia'), cat='Tutte', hideSeen=store.get('edicola-hide',false);
+let seen={};
+
+function applyText(){const f=store.get('edicola-font','serif'),s=store.get('edicola-size',1);
+  document.documentElement.style.setProperty('--text',f==='sans'?'var(--sans)':'var(--serif)');
+  document.documentElement.style.setProperty('--scale',s);
+  document.querySelectorAll('[data-font]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.font===f));
+  document.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.size===+s))}
+
+function paras(t){return String(t||'').split(/\n\s*\n/).map(p=>`<p>${esc(p.trim()).replace(/\n/g,'<br>')}</p>`).join('')}
+
+function mediaHTML(p){const n=p.media.length;
+  const slides=p.media.map((m,i)=>m.t==='v'
+    ?`<div class="slide"><video controls playsinline preload="none" ${m.poster?`poster="${esc(m.poster)}"`:''} src="${esc(m.src)}"></video></div>`
+    :`<div class="slide"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(m.src)}" alt="Slide ${i+1} di ${n}"></div>`).join('');
+  return `<div class="media"><div class="track">${slides}</div>${n>1?`<span class="count">1/${n}</span>`:''}</div>${n>1&&n<=15?`<div class="dots">${'<i></i>'.repeat(n)}</div>`:''}`}
+
+function postHTML(p,showCat=true){const s=!!seen[p.id];
+  return `<article class="post${s?' is-seen':''}" data-id="${esc(p.id)}">
+  <div class="eyebrow">${showCat?`<span class="cat">${esc(p.cat)}</span><span>·</span>`:''}<span>${esc(p.pageName)}</span><span>·</span><span>${ago(p.time)}</span>${p.promo?'<span class="badge">Promozione</span>':''}${p.lang==='en'?'<span class="badge">Tradotto</span>':''}<span class="seen">${s?'✓ visto':''}</span></div>
+  <h3>${esc(p.title)}</h3>
+  <p class="summary">${esc(p.summary)}</p>
+  ${mediaHTML(p)}
+  <button class="more" aria-expanded="false">Leggi il post completo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+  <div class="caption">${paras(p.caption)}<a class="orig" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Apri su Instagram ↗</a></div>
+  </article>`}
+
+function visible(){return data.posts.filter(p=>(cat==='Tutte'||p.cat===cat)&&(!hideSeen||!seen[p.id]))}
+
+function render(){
+  const posts=visible(), feed=$('#feed');
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===view));
+  const cats=['Tutte',...new Set(data.posts.map(p=>p.cat))];
+  $('#chips').innerHTML=cats.map(c=>`<button class="chip" data-cat="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')+
+    `<button class="chip toggle" id="hideSeen" aria-pressed="${hideSeen}">${hideSeen?'Mostra i visti':'Nascondi i visti'}</button>`;
+  if(!posts.length){feed.innerHTML=`<div class="empty">${hideSeen?'Hai visto tutto quello che c\'era qui.':'Niente in questa categoria oggi.'}</div>`;$('#end').hidden=true;bind();return}
+  let html='';
+  if(view==='notizia'){
+    const stories=new Map();posts.forEach(p=>{const k=p.story||p.id;if(!stories.has(k))stories.set(k,[]);stories.get(k).push(p)});
+    stories.forEach((list,k)=>{html+=list.length>1
+      ?`<section class="story"><div class="lbl">${list.length} pagine ne parlano</div><h4>${esc(k)}</h4>${list.map(p=>postHTML(p)).join('')}</section>`
+      :postHTML(list[0])});
+  }else{
+    const key=view==='categoria'?'cat':'pageName';const g=new Map();posts.forEach(p=>{if(!g.has(p[key]))g.set(p[key],[]);g.get(p[key]).push(p)});
+    g.forEach((list,k)=>{html+=`<section class="group"><div class="ghead"><h3>${esc(k)}</h3><span>${list.length} ${list.length===1?'post':'post'}</span></div>${list.map(p=>postHTML(p,view!=='categoria')).join('')}</section>`});
+  }
+  feed.innerHTML=html;$('#end').hidden=false;bind();
+}
+
+function updateCounts(){const tot=data.posts.length,n=data.posts.filter(p=>seen[p.id]).length;
+  $('#seenCount').textContent=`${n} di ${tot} visti`;
+  const left=data.posts.filter(p=>!seen[p.id]);
+  const words=left.reduce((a,p)=>a+(p.summary+' '+p.caption).split(/\s+/).length,0);
+  $('#readTime').textContent=left.length?`circa ${Math.max(1,Math.round(words/220))} min da leggere`:'tutto letto';
+  $('#progress').innerHTML=data.posts.map(p=>`<i class="${seen[p.id]?'on':''}"></i>`).join('');
+  const [g,lines]=greeting();$('#greet').textContent=g;
+  const line=lines[new Date().getDate()%lines.length];
+  $('#intro').textContent=left.length?`${line} Le tue pagine hanno pubblicato ${tot} post: te ne restano ${left.length}.`:`${line} Hai già visto tutto: ci rivediamo domattina.`}
+
+let io;
+function bind(){
+  document.querySelectorAll('.more').forEach(b=>b.onclick=()=>{const c=b.nextElementSibling,o=!c.classList.contains('open');c.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.firstChild.textContent=o?'Chiudi il post ':'Leggi il post completo '});
+  document.querySelectorAll('.media').forEach(m=>{const t=m.querySelector('.track'),c=m.querySelector('.count'),d=m.parentElement.querySelectorAll('.dots i'),n=t.children.length;
+    const f=()=>{const i=Math.round(t.scrollLeft/t.clientWidth);if(c)c.textContent=`${i+1}/${n}`;d.forEach((x,j)=>x.classList.toggle('on',j===i));
+      t.querySelectorAll('video').forEach((v,j)=>{if(!v.paused&&v.closest('.slide')!==t.children[i])v.pause()})};
+    t.addEventListener('scroll',f,{passive:true});f()});
+  document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;render()});
+  $('#hideSeen').onclick=()=>{hideSeen=!hideSeen;store.set('edicola-hide',hideSeen);render()};
+  if(io)io.disconnect();
+  const timers=new Map();
+  io=new IntersectionObserver(es=>es.forEach(e=>{const id=e.target.dataset.id;
+    if(e.isIntersecting){if(!seen[id]&&!timers.has(id))timers.set(id,setTimeout(()=>markSeen(e.target),1500))}
+    else{clearTimeout(timers.get(id));timers.delete(id)}}),{threshold:.55});
+  document.querySelectorAll('.post').forEach(p=>io.observe(p));
+}
+function markSeen(el){const id=el.dataset.id;if(seen[id])return;seen[id]=Date.now();store.set('edicola-seen-'+data.edition,seen);
+  el.classList.add('is-seen');const s=el.querySelector('.seen');if(s)s.textContent='✓ visto';updateCounts()}
+
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;store.set('edicola-view',view);render()});
+const openSheet=o=>{$('#sheet').hidden=!o;$('#scrim').hidden=!o};
+$('#fontBtn').onclick=()=>openSheet(true);$('#scrim').onclick=()=>openSheet(false);
+document.querySelectorAll('[data-font]').forEach(b=>b.onclick=()=>{store.set('edicola-font',b.dataset.font);applyText()});
+document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{store.set('edicola-size',+b.dataset.size);applyText()});
+applyText();
+
+fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{data=d;
+  seen=store.get('edicola-seen-'+d.edition,{});
+  const ed=new Date(d.edition+'T12:00:00'),up=new Date(d.updated);
+  $('#dateline').textContent=`${cap(longDate(ed))} · aggiornata alle ${up.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}`;
+  const today=new Date();today.setHours(12,0,0,0);
+  if(Math.round((today-ed)/864e5)>=1){$('#stale').hidden=false;$('#stale').textContent=`Questa è l'edizione di ${longDate(ed)}. Quella di oggi arriva alle 5.`}
+  updateCounts();render();
+}).catch(()=>{$('#intro').textContent='Non riesco a caricare l\'edizione di oggi. Riprova tra poco.'});
+})();
+</script>
+</body>
+</html>
