@@ -2,7 +2,8 @@
 """Edicola - passo 2: unisce i post (work/raw.json) con i testi di Claude (work/enrich.json).
 Scrive data.json (il sito), briefing.json (per il briefing delle 5) e aggiorna visti.json.
 enrich.json = {"ID": {"title":..., "summary":..., "cat"?:..., "story"?:..., "tags"?:[...],
-                      "caption"?: testo (obbligatorio se il post è in inglese: traduzione), "top"?: true, "skip"?: true}}"""
+                      "caption"?: testo (obbligatorio se il post è in inglese: traduzione), "top"?: true, "skip"?: true},
+             "_storie": [{"titolo":..., "emoji":..., "peso": 1-3, "post": [ID, ...]}]}"""
 import json, os, sys, time, datetime as dt
 T = os.path.dirname(os.path.abspath(__file__)); R = os.path.dirname(T); W = os.path.join(T, 'work')
 CFG = json.load(open(os.path.join(T, 'pagine.json'))); PAGES = {p['u']: p for p in CFG['pagine']}
@@ -25,7 +26,14 @@ if missing:
     print('ATTENZIONE: post senza testi (esclusi):', len(missing), missing[:10])
 order = {c: i for i, c in enumerate(CFG['categorie'])}
 cats = sorted({p['cat'] for p in posts}, key=lambda c: order.get(c, 99))
-data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats,
+ids = {p['id'] for p in posts}
+stories = []
+for st in en.get('_storie', []):
+    post = [i for i in st.get('post', []) if i in ids]
+    if post and st.get('titolo'):
+        stories.append({'titolo': st['titolo'], 'emoji': st.get('emoji') or '🗞️', 'peso': max(1, min(3, int(st.get('peso', 1)))), 'post': post})
+stories.sort(key=lambda x: -x['peso'])
+data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats, 'stories': stories,
         'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
 json.dump(data, open(os.path.join(R, 'data.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 # monitoraggio pagine
@@ -39,6 +47,7 @@ brief = {'edition': data['edition'], 'sito': 'https://doddo29.github.io/edicola-
          'pagine': len({p['page'] for p in posts}),
          'per_categoria': {c: sum(p['cat'] == c for p in posts) for c in cats},
          'notizie_dalle_pagine': [{'pagina': p['pageName'], 'cat': p['cat'], 'titolo': p['title'], 'riassunto': p['summary']} for p in posts if p['briefing']],
+         'prima_pagina': [{'titolo': x['titolo'], 'peso': x['peso'], 'post': len(x['post'])} for x in stories],
          'da_non_perdere': [{'pagina': p['pageName'], 'titolo': p['title'], 'riassunto': p['summary']} for p in posts if 'Da non perdere' in p['tags']],
          'pagine_silenziose': sil}
 json.dump(brief, open(os.path.join(R, 'briefing.json'), 'w'), ensure_ascii=False, indent=1)

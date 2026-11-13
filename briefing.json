@@ -1,7 +1,7 @@
 {
  "edition": "2026-11-13",
  "sito": "https://doddo29.github.io/edicola-7q4m/",
- "post": 219,
+ "post": 217,
  "pagine": 74,
  "per_categoria": {
   "Notizie": 50,
@@ -588,6 +588,98 @@
    "pagina": "Zenxogg",
    "giorni_senza_post": 115,
    "mai_visto": false
+  }
+ ],
+ "prima_pagina": [
+  {
+   "titolo": "Italia-Francia 3-1: la Nazionale si prende la Nations League",
+   "peso": 3,
+   "post": 15
+  },
+  {
+   "titolo": "Allarmi bomba nelle scuole: cosa sta succedendo",
+   "peso": 3,
+   "post": 9
+  },
+  {
+   "titolo": "Jensen Huang lascia Nvidia dopo 33 anni",
+   "peso": 2,
+   "post": 8
+  },
+  {
+   "titolo": "GTA VI sta arrivando",
+   "peso": 2,
+   "post": 9
+  },
+  {
+   "titolo": "Elezioni studentesche alla Sapienza",
+   "peso": 2,
+   "post": 4
+  },
+  {
+   "titolo": "Dalla tua zona: sparatorie ad Afragola, furti e truffe",
+   "peso": 2,
+   "post": 4
+  },
+  {
+   "titolo": "Bukele manda i soldati ad Haiti",
+   "peso": 2,
+   "post": 2
+  },
+  {
+   "titolo": "San Siro applaude Kimi Antonelli",
+   "peso": 1,
+   "post": 2
+  },
+  {
+   "titolo": "Sanità pubblica: medici e infermieri in piazza",
+   "peso": 1,
+   "post": 1
+  },
+  {
+   "titolo": "Fuorisede al voto: iscrizioni entro fine anno",
+   "peso": 1,
+   "post": 1
+  },
+  {
+   "titolo": "Pochettino al Manchester United",
+   "peso": 1,
+   "post": 2
+  },
+  {
+   "titolo": "Spagna, record mondiale di imbattibilità",
+   "peso": 1,
+   "post": 2
+  },
+  {
+   "titolo": "Valditara chiede di ritirare un libro di storia",
+   "peso": 1,
+   "post": 1
+  },
+  {
+   "titolo": "Giornata mondiale della gentilezza",
+   "peso": 1,
+   "post": 3
+  },
+  {
+   "titolo": "Robot con il laser salvano i salmoni",
+   "peso": 1,
+   "post": 2
+  },
+  {
+   "titolo": "Fàbregas guarda tre partite alla volta",
+   "peso": 1,
+   "post": 2
+  },
+  {
+   "titolo": "Sicilia: 30mila euro ai laureati che restano",
+   "peso": 1,
+   "post": 1
+  },
+  {
+   "titolo": "I fari e le rocche disegnati da Victor Hugo",
+   "peso": 1,
+   "post": 1
   }
  ]
 }

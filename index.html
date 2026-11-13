@@ -25,6 +25,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0}
 body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -35,7 +36,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 
 /* Barra in alto */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);
-  margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:1px solid var(--line)}
+  margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:22px max(16px,env(safe-area-inset-left,0px)) 0;border-bottom:1px solid var(--line)}
 .bar .wrap{display:flex;align-items:center;gap:12px}
 .bar .wrap.col{display:block}
 .brand{font-family:var(--serif);font-style:italic;font-weight:500;font-size:26px;letter-spacing:-.01em;margin:0;line-height:1}
@@ -123,8 +124,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 .row .seg{flex:1}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25}
 /* Barra di posizione e salto ai non visti */
-.rail{position:fixed;top:calc(env(safe-area-inset-top,0px) + 112px);bottom:calc(env(safe-area-inset-bottom,0px) + 84px);right:max(3px,env(safe-area-inset-right,0px));width:14px;z-index:8}
-.rail::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;border-radius:2px;background:var(--line)}
+.rail{position:fixed;top:calc(env(safe-area-inset-top,0px) + 122px);bottom:calc(env(safe-area-inset-bottom,0px) + 84px);left:max(2px,env(safe-area-inset-left,0px));width:12px;z-index:8}
+.rail::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:2px;border-radius:2px;background:var(--line)}
 .rail .thumb{position:absolute;left:4px;width:6px;border-radius:3px;background:rgba(238,232,221,.28);transition:top .08s linear}
 .rail .tick{position:absolute;left:2px;width:10px;height:10px;margin-top:-5px;border-radius:50%;padding:0;background:var(--clay);border:2px solid var(--bg)}
 .rail .tick.seen{background:var(--faint);width:6px;height:6px;left:4px;margin-top:-3px;border:0}
@@ -151,6 +152,38 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 @keyframes blink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
 @keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-12px) rotate(-6deg)}70%{transform:translateY(0) scaleY(.92)}100%{transform:none}}
 @keyframes zz{0%,100%{transform:translate(0,0);opacity:.2}50%{transform:translate(3px,-4px);opacity:.9}}
+
+/* Prima pagina: riquadri per notizia */
+.kicker{display:flex;align-items:baseline;justify-content:space-between;margin:30px 0 12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.kicker span{color:var(--faint);letter-spacing:.02em;text-transform:none;font-weight:400}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;display:flex;flex-direction:column;gap:10px;padding:14px 14px 12px;min-height:148px;border-radius:16px;background:var(--surface);border:1px solid var(--line);color:var(--fg);text-decoration:none;transition:transform .15s,border-color .15s}
+.tile:active{transform:scale(.98)}
+.tile:hover{border-color:#4a453e}
+.tile.p3{grid-column:span 2;min-height:168px;background:linear-gradient(160deg,#2c2925,var(--surface))}
+.tile .emo{font-size:26px;line-height:1}
+.tile.p3 .emo{font-size:34px}
+.tile h3{font-family:var(--serif);font-weight:500;font-size:18px;line-height:1.2;margin:0;flex:1;text-wrap:balance;letter-spacing:-.005em}
+.tile.p3 h3{font-size:25px;line-height:1.15}
+.tile .tmeta{font-size:11.5px;color:var(--muted)}
+.tile .new{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--clay)}
+.tile.done{opacity:.45}
+.secs{border-top:1px solid var(--line)}
+.secrow{display:flex;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none}
+.secrow .emo{font-size:20px;width:26px;text-align:center}
+.secrow b{flex:1;font-weight:500;font-size:15.5px}
+.secrow span.n{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.secrow span.n em{font-style:normal;color:var(--clay)}
+.secrow.all b{font-family:var(--serif);font-style:italic;font-size:17px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;padding:22px 0 0;text-decoration:none}
+.back:hover{color:var(--fg)}
+.dhead{padding:14px 0 6px}
+.dhead .emo{font-size:40px;line-height:1}
+.dhead h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,7.5vw,36px);line-height:1.12;margin:12px 0 6px;letter-spacing:-.015em;text-wrap:balance}
+.dhead p{margin:0;color:var(--muted);font-size:13px}
+.nextstory{display:block;margin:30px 0 10px;padding:16px;border-radius:16px;border:1px solid var(--line);color:var(--fg);text-decoration:none;background:var(--surface)}
+.nextstory small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:6px}
+.nextstory b{font-family:var(--serif);font-weight:500;font-size:19px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -176,7 +209,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
     <div id="stale" class="stale" hidden></div>
   </section>
 
-  <section class="controls" aria-label="Come vuoi leggere">
+  <div id="home"></div>
+  <div id="detail"></div>
+  <section class="controls" id="controls" aria-label="Come vuoi leggere"><a class="back" href="#/" style="padding-top:0">← Prima pagina</a>
     <div class="seg" role="group" aria-label="Ordina">
       <button id="v-notizia" aria-pressed="true" data-view="notizia">Per notizia</button>
       <button id="v-categoria" aria-pressed="false" data-view="categoria">Per categoria</button>
@@ -292,7 +327,38 @@ function postHTML(p,showCat=true){const s=!!seen[p.id];
 
 function visible(){return data.posts.filter(p=>(cat==='Tutte'||p.cat===cat)&&(!hideSeen||!seen[p.id]))}
 
+const EMO={'Notizie':'🗞️','Napoli':'🌋','Università':'🎓','Calcio':'⚽','Tech e IA':'🤖','Internet':'🌐','Cultura':'📚','Design e marketing':'🎨','Spettacolo e stile':'🎬','Risate':'😂','Benessere':'🌿'};
+const byId=id=>data.posts.find(p=>p.id===id);
+function stories(){if(data._st)return data._st;
+  let st=(data.stories||[]).map(s=>({...s,posts:(s.post||[]).map(byId).filter(Boolean)})).filter(s=>s.posts.length);
+  if(!st.length){const g=new Map();data.posts.forEach(p=>{if(p.story){if(!g.has(p.story))g.set(p.story,[]);g.get(p.story).push(p)}});
+    st=[...g].filter(([k,l])=>l.length>1).sort((a,b)=>b[1].length-a[1].length).map(([k,l],i)=>({titolo:k,emoji:EMO[l[0].cat]||'🗞️',peso:i<2?3:2,posts:l}));
+    data.posts.filter(p=>(p.tags||[]).includes('Da non perdere')).forEach(p=>st.push({titolo:p.title,emoji:EMO[p.cat]||'✨',peso:1,posts:[p]}))}
+  return data._st=st}
+function route(){const h=decodeURIComponent(location.hash.slice(1)||'/');
+  if(h.startsWith('/s/'))return{t:'s',i:+h.slice(3)};if(h.startsWith('/c/'))return{t:'c',c:h.slice(3)};if(h==='/tutto')return{t:'tutto'};return{t:'home'}}
+const unseenOf=l=>l.filter(p=>!seen[p.id]).length;
+function homeHTML(){const st=stories();
+  const tiles=st.map((s,i)=>{const u=unseenOf(s.posts),pg=new Set(s.posts.map(p=>p.page)).size,w=Math.min(3,Math.max(1,s.peso||1));
+    return `<a class="tile p${w}${u?'':' done'}" href="#/s/${i}">${u?'<span class="new"></span>':''}<span class="emo">${esc(s.emoji||'🗞️')}</span><h3>${esc(s.titolo)}</h3><span class="tmeta">${pg>1?`${pg} pagine ne parlano`:esc(s.posts[0].pageName)}${u?'':' · visto'}</span></a>`}).join('');
+  const cats=(data.cats||[]).map(c=>{const l=data.posts.filter(p=>p.cat===c),u=unseenOf(l);
+    return `<a class="secrow" href="#/c/${encodeURIComponent(c)}"><span class="emo">${EMO[c]||'•'}</span><b>${esc(c)}</b><span class="n">${u?`<em>${u}</em> di ${l.length}`:`${l.length} ✓`}</span></a>`}).join('');
+  return `${st.length?`<div class="kicker">Prima pagina<span>${st.length} notizie</span></div><div class="grid">${tiles}</div>`:''}
+    <div class="kicker">Sezioni<span>${data.posts.length} post</span></div><div class="secs">${cats}
+    <a class="secrow all" href="#/tutto"><span class="emo">📰</span><b>Tutto il giornale</b><span class="n">${unseenOf(data.posts)} da vedere</span></a></div>`}
+function groupedHTML(posts){let html='';const g=new Map();posts.forEach(p=>{const k=p.story||p.id;if(!g.has(k))g.set(k,[]);g.get(k).push(p)});
+  [...g].sort((a,b)=>(b[1].length>1)-(a[1].length>1)).forEach(([k,l])=>{html+=l.length>1?`<section class="story"><div class="lbl">${l.length} pagine ne parlano</div><h4>${esc(k)}</h4>${l.map(p=>postHTML(p,false)).join('')}</section>`:postHTML(l[0],false)});return html}
+function detailHTML(r){if(r.t==='s'){const st=stories(),s=st[r.i];if(!s)return'';const nx=st.slice(r.i+1).find(x=>unseenOf(x.posts))||st[r.i+1];
+    return `<a class="back" href="#/">← Prima pagina</a><div class="dhead"><div class="emo">${esc(s.emoji||'🗞️')}</div><h2>${esc(s.titolo)}</h2><p>${s.posts.length} ${s.posts.length===1?'post':'post'} da ${new Set(s.posts.map(p=>p.page)).size} ${new Set(s.posts.map(p=>p.page)).size===1?'pagina':'pagine'}</p></div>
+      ${s.posts.map(p=>postHTML(p)).join('')}${nx?`<a class="nextstory" href="#/s/${st.indexOf(nx)}"><small>Prossima notizia</small><b>${esc(nx.emoji||'')} ${esc(nx.titolo)}</b></a>`:`<a class="nextstory" href="#/"><small>Fine</small><b>Torna alla prima pagina</b></a>`}`}
+  const l=data.posts.filter(p=>p.cat===r.c);
+  return `<a class="back" href="#/">← Prima pagina</a><div class="dhead"><div class="emo">${EMO[r.c]||'🗞️'}</div><h2>${esc(r.c)}</h2><p>${l.length} post · ${unseenOf(l)} da vedere</p></div>${groupedHTML(l)}<a class="nextstory" href="#/"><small>Fine sezione</small><b>Torna alla prima pagina</b></a>`}
+
 function render(){
+  const r=route(),isHome=r.t==='home',isAll=r.t==='tutto';
+  document.querySelector('.hello').hidden=!isHome;$('#controls').hidden=!isAll;
+  $('#home').innerHTML=isHome?homeHTML():'';$('#detail').innerHTML=(r.t==='s'||r.t==='c')?detailHTML(r):'';
+  if(!isAll){$('#feed').innerHTML='';$('#end').hidden=true;bind();schedule();return}
   const posts=visible(), feed=$('#feed');
   document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===view));
   const cats=['Tutte',...(data.cats||new Set(data.posts.map(p=>p.cat)))];
@@ -333,7 +399,7 @@ function bind(){
       t.querySelectorAll('video').forEach((v,j)=>{if(!v.paused&&v.closest('.slide')!==t.children[i])v.pause()})};
     t.addEventListener('scroll',f,{passive:true});f()});
   document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;render()});
-  $('#hideSeen').onclick=()=>{hideSeen=!hideSeen;store.set('edicola-hide',hideSeen);render()};
+  if($('#hideSeen'))$('#hideSeen').onclick=()=>{hideSeen=!hideSeen;store.set('edicola-hide',hideSeen);render()};
   if(io)io.disconnect();
   const timers=new Map();
   io=new IntersectionObserver(es=>es.forEach(e=>{const id=e.target.dataset.id;
@@ -346,7 +412,7 @@ function layoutRail(){raf=0;const H=document.documentElement.scrollHeight,vh=inn
   thumb.style.height=Math.max(18,rh*vh/H)+'px';thumb.style.top=(rh*scrollY/H)+'px';
   const posts=[...document.querySelectorAll('.post')];
   rail.querySelectorAll('.tick').forEach(t=>t.remove());
-  posts.forEach(p=>{const b=document.createElement('button');b.className='tick'+(seen[p.dataset.id]?' seen':'');
+  if(posts.length<=40)posts.forEach(p=>{const b=document.createElement('button');b.className='tick'+(seen[p.dataset.id]?' seen':'');
     b.style.top=(rh*(p.getBoundingClientRect().top+scrollY)/H)+'px';b.setAttribute('aria-label',p.querySelector('h3').textContent);
     b.onclick=()=>p.scrollIntoView({behavior:'smooth',block:'start'});rail.appendChild(b)});
   const unseen=posts.filter(p=>!seen[p.dataset.id]);const top=scrollY+130,bottom=scrollY+vh;
@@ -363,6 +429,7 @@ new ResizeObserver(schedule).observe(document.body);
 function markSeen(el){const id=el.dataset.id;if(seen[id])return;seen[id]=Date.now();store.set('edicola-seen-'+data.edition,seen);
   el.classList.add('is-seen');const s=el.querySelector('.seen');if(s)s.textContent='✓ visto';updateCounts();schedule()}
 
+addEventListener('hashchange',()=>{render();scrollTo(0,0)});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;store.set('edicola-view',view);render()});
 const openSheet=o=>{$('#sheet').hidden=!o;$('#scrim').hidden=!o};
 $('#fontBtn').onclick=()=>openSheet(true);$('#scrim').onclick=()=>openSheet(false);

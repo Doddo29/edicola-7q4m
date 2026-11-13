@@ -81,7 +81,10 @@ def main(files):
     vp = os.path.join(T, 'visti.json')
     visti = json.load(open(vp)) if os.path.exists(vp) else {}
     by = {}
+    done = set()
     for x in items:
+        if x.get('code') in done: continue
+        done.add(x.get('code'))
         u = (g(x, 'user.username') or x.get('scraped_username') or '').lower()
         if u not in PAGES or not x.get('code'): continue
         ts = g(x, 'taken_at') or 0
