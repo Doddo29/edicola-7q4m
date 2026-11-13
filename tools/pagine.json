@@ -148,7 +148,7 @@
   },
   {
    "u": "h.omosapiens",
-   "nome": "H.omosapiens",
+   "nome": "(h)Omo Sapiens",
    "cat": "Notizie",
    "briefing": true,
    "alto": false
@@ -273,6 +273,27 @@
    "alto": false
   },
   {
+   "u": "calcioemotivo",
+   "nome": "Calcio Emotivo",
+   "cat": "Calcio",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "edodinu",
+   "nome": "Edoardo Di Nuzzo",
+   "cat": "Calcio",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "napolisuldivanoo",
+   "nome": "Napoli sul divano",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
    "u": "ai__facile",
    "nome": "AI Facile",
    "cat": "Tech e IA",
@@ -371,6 +392,41 @@
    "alto": false
   },
   {
+   "u": "michelecottiai",
+   "nome": "Michele Cotti",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "riccardo_belli_contarini",
+   "nome": "Riccardo Belli Contarini",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "techjee_",
+   "nome": "Techjee",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "jakidale",
+   "nome": "Jacopo D'Alesio",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "wired",
+   "nome": "WIRED",
+   "cat": "Tech e IA",
+   "briefing": true,
+   "alto": true
+  },
+  {
    "u": "lasediaa2gambe",
    "nome": "La Sedia a 2 Gambe",
    "cat": "Internet",
@@ -394,6 +450,13 @@
   {
    "u": "matteobarresi_",
    "nome": "Matteo Barresi",
+   "cat": "Internet",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nootso_",
+   "nome": "Nootso",
    "cat": "Internet",
    "briefing": false,
    "alto": false
@@ -509,6 +572,34 @@
    "cat": "Cultura",
    "briefing": false,
    "alto": false
+  },
+  {
+   "u": "ilsussurrodelmondo",
+   "nome": "Il sussurro del mondo",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "avv_giuseppe_di_palo",
+   "nome": "Avv. Giuseppe Di Palo",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "angelogrecoofficial",
+   "nome": "Angelo Greco",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "fubiz",
+   "nome": "Fubiz",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": true
   },
   {
    "u": "marketing.ignorante",
@@ -644,6 +735,20 @@
    "alto": false
   },
   {
+   "u": "ember.lite",
+   "nome": "Emberlite",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "vagabondiary",
+   "nome": "Vagabondiary",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
    "u": "nascecresceignora",
    "nome": "Nasce Cresce Ignora",
    "cat": "Risate",
@@ -663,6 +768,13 @@
    "cat": "Risate",
    "briefing": false,
    "alto": false
+  },
+  {
+   "u": "trash_italiano",
+   "nome": "Trash Italiano",
+   "cat": "Risate",
+   "briefing": false,
+   "alto": true
   },
   {
    "u": "agnod3",
@@ -709,6 +821,13 @@
   {
    "u": "beardedscara",
    "nome": "Pelato con la barba",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "spiritmoderna",
+   "nome": "Spiritualità Moderna",
    "cat": "Benessere",
    "briefing": false,
    "alto": false
