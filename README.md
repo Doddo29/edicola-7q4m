@@ -1,6 +1,6 @@
-# Edicola
+# AutYG
 
-Un feed personale e senza social: ogni notte un'attività programmata raccoglie i post nuovi di un elenco di pagine pubbliche, li riassume e li traduce in italiano, e pubblica qui l'edizione del giorno.
+AutYG (ex Edicola): un feed personale e senza social: ogni notte un'attività programmata raccoglie i post nuovi di un elenco di pagine pubbliche, li riassume e li traduce in italiano, e pubblica qui l'edizione del giorno.
 
 - `index.html` – il sito (GitHub Pages)
 - `data.json` – l'edizione del giorno
