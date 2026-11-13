@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Edicola - passo 1: legge i post grezzi di Apify e prepara il lavoro per Claude.
+"""AutYG - passo 1: legge i post grezzi di Apify e prepara il lavoro per Claude.
 Uso: python3 tools/prepare.py FILE [FILE...]
 FILE = output salvato di get-dataset-items (anche più pagine) oppure un array JSON di post.
 Scrive tools/work/raw.json (post selezionati e normalizzati) e tools/work/todo.md (da leggere)."""

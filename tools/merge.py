@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Edicola - passo 2: unisce i post (work/raw.json) con i testi di Claude (work/enrich.json).
-Scrive data.json (il sito), briefing.json (per il briefing delle 5) e aggiorna visti.json.
+"""AutYG - passo 2: unisce i post (work/raw.json) con i testi di Claude (work/enrich.json).
+Scrive data.json (il sito), briefing.json (per il Briefing personale delle 5) e aggiorna visti.json.
 enrich.json = {"ID": {"title":..., "summary":..., "cat"?:..., "story"?:..., "tags"?:[...],
                       "caption"?: testo (obbligatorio se il post è in inglese: traduzione), "top"?: true, "skip"?: true},
              "_storie": [{"titolo":..., "emoji":..., "peso": 1-3, "post": [ID, ...]}]}"""
@@ -36,6 +36,12 @@ stories.sort(key=lambda x: -x['peso'])
 pp = os.path.join(W, 'punto.json')
 punto = json.load(open(pp)) if os.path.exists(pp) else None
 if punto:
+    # i rimandi del Punto ai post («post»: [ID, ...]) restano solo se il post è davvero nell'edizione
+    for sez in punto.get('sezioni', []):
+        for n in sez.get('notizie', []):
+            if 'post' in n:
+                n['post'] = [i for i in dict.fromkeys(n.get('post') or []) if i in ids][:6]
+                if not n['post']: del n['post']
     sp = os.path.join(T, 'storico_punto.json')
     storico = json.load(open(sp)) if os.path.exists(sp) else {}
     storico[now.strftime('%Y-%m-%d')] = [f"{s.get('titolo')}: {n.get('titolo')}" for s in punto.get('sezioni', []) for n in s.get('notizie', [])]

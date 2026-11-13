@@ -831,6 +831,20 @@
    "cat": "Benessere",
    "briefing": false,
    "alto": false
+  },
+  {
+   "u": "humansafari",
+   "nome": "Human Safari",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "applezein",
+   "nome": "Apple Zein",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
   }
  ]
 }
