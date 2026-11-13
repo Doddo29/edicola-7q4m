@@ -33,7 +33,15 @@ for st in en.get('_storie', []):
     if post and st.get('titolo'):
         stories.append({'titolo': st['titolo'], 'emoji': st.get('emoji') or '🗞️', 'peso': max(1, min(3, int(st.get('peso', 1)))), 'post': post})
 stories.sort(key=lambda x: -x['peso'])
-data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats, 'stories': stories,
+pp = os.path.join(W, 'punto.json')
+punto = json.load(open(pp)) if os.path.exists(pp) else None
+if punto:
+    sp = os.path.join(T, 'storico_punto.json')
+    storico = json.load(open(sp)) if os.path.exists(sp) else {}
+    storico[now.strftime('%Y-%m-%d')] = [f"{s.get('titolo')}: {n.get('titolo')}" for s in punto.get('sezioni', []) for n in s.get('notizie', [])]
+    cut10 = (now - dt.timedelta(days=10)).strftime('%Y-%m-%d')
+    json.dump({k: v for k, v in storico.items() if k >= cut10}, open(sp, 'w'), ensure_ascii=False, indent=1, sort_keys=True)
+data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats, 'stories': stories, 'punto': punto,
         'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
 json.dump(data, open(os.path.join(R, 'data.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 # monitoraggio pagine
@@ -47,6 +55,7 @@ brief = {'edition': data['edition'], 'sito': 'https://doddo29.github.io/edicola-
          'pagine': len({p['page'] for p in posts}),
          'per_categoria': {c: sum(p['cat'] == c for p in posts) for c in cats},
          'notizie_dalle_pagine': [{'pagina': p['pageName'], 'cat': p['cat'], 'titolo': p['title'], 'riassunto': p['summary']} for p in posts if p['briefing']],
+         'punto': [{'sezione': x.get('titolo'), 'notizie': [n.get('titolo') for n in x.get('notizie', [])]} for x in (punto or {}).get('sezioni', [])],
          'prima_pagina': [{'titolo': x['titolo'], 'peso': x['peso'], 'post': len(x['post'])} for x in stories],
          'da_non_perdere': [{'pagina': p['pageName'], 'titolo': p['title'], 'riassunto': p['summary']} for p in posts if 'Da non perdere' in p['tags']],
          'pagine_silenziose': sil}

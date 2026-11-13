@@ -184,6 +184,22 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 .nextstory{display:block;margin:30px 0 10px;padding:16px;border-radius:16px;border:1px solid var(--line);color:var(--fg);text-decoration:none;background:var(--surface)}
 .nextstory small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:6px}
 .nextstory b{font-family:var(--serif);font-weight:500;font-size:19px}
+
+/* Il punto di stamattina */
+.punto-tile{display:block;margin-top:24px;padding:18px 16px 16px;border-radius:18px;text-decoration:none;color:var(--fg);border:1px solid rgba(217,119,87,.45);background:linear-gradient(150deg,rgba(217,119,87,.16),var(--surface) 70%)}
+.punto-tile .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.punto-tile h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:8px 0 10px}
+.punto-tile ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.punto-tile li{font-size:14px;color:var(--soft);line-height:1.35;display:flex;gap:8px}
+.punto-tile li span{flex:none;width:20px}
+.punto-tile.done{opacity:.5;border-color:var(--line)}
+.psec{padding-top:8px}
+.psec .kicker{margin-top:26px}
+.pitem{padding:14px 0 16px;border-bottom:1px solid var(--line)}
+.pitem h3{font-family:var(--serif);font-weight:500;font-size:calc(22px*var(--scale));line-height:1.2;margin:0 0 8px;text-wrap:balance}
+.pitem p{font-family:var(--text);font-size:calc(17.5px*var(--scale));line-height:1.6;color:var(--soft);margin:0}
+.fonti{margin:28px 0 10px;font-size:12.5px;color:var(--faint);line-height:1.7}
+.fonti a{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -336,19 +352,26 @@ function stories(){if(data._st)return data._st;
     data.posts.filter(p=>(p.tags||[]).includes('Da non perdere')).forEach(p=>st.push({titolo:p.title,emoji:EMO[p.cat]||'✨',peso:1,posts:[p]}))}
   return data._st=st}
 function route(){const h=decodeURIComponent(location.hash.slice(1)||'/');
-  if(h.startsWith('/s/'))return{t:'s',i:+h.slice(3)};if(h.startsWith('/c/'))return{t:'c',c:h.slice(3)};if(h==='/tutto')return{t:'tutto'};return{t:'home'}}
+  if(h.startsWith('/s/'))return{t:'s',i:+h.slice(3)};if(h.startsWith('/c/'))return{t:'c',c:h.slice(3)};if(h==='/tutto')return{t:'tutto'};if(h==='/punto')return{t:'punto'};return{t:'home'}}
 const unseenOf=l=>l.filter(p=>!seen[p.id]).length;
 function homeHTML(){const st=stories();
   const tiles=st.map((s,i)=>{const u=unseenOf(s.posts),pg=new Set(s.posts.map(p=>p.page)).size,w=Math.min(3,Math.max(1,s.peso||1));
     return `<a class="tile p${w}${u?'':' done'}" href="#/s/${i}">${u?'<span class="new"></span>':''}<span class="emo">${esc(s.emoji||'🗞️')}</span><h3>${esc(s.titolo)}</h3><span class="tmeta">${pg>1?`${pg} pagine ne parlano`:esc(s.posts[0].pageName)}${u?'':' · visto'}</span></a>`}).join('');
   const cats=(data.cats||[]).map(c=>{const l=data.posts.filter(p=>p.cat===c),u=unseenOf(l);
     return `<a class="secrow" href="#/c/${encodeURIComponent(c)}"><span class="emo">${EMO[c]||'•'}</span><b>${esc(c)}</b><span class="n">${u?`<em>${u}</em> di ${l.length}`:`${l.length} ✓`}</span></a>`}).join('');
-  return `${st.length?`<div class="kicker">Prima pagina<span>${st.length} notizie</span></div><div class="grid">${tiles}</div>`:''}
+  const P=data.punto,pd=store.get('edicola-punto-'+data.edition,false);
+  const punto=P&&P.sezioni&&P.sezioni.length?`<a class="punto-tile${pd?' done':''}" href="#/punto"><div class="lbl">☕ Il punto di stamattina</div><h3>${esc((P.sezioni[0].notizie[0]||{}).titolo||'Le notizie di oggi')}</h3><ul>${P.sezioni.slice(1,6).map(x=>`<li><span>${esc(x.emoji||'•')}</span>${esc((x.notizie[0]||{}).titolo||x.titolo)}</li>`).join('')}</ul></a>`:'';
+  return `${punto}${st.length?`<div class="kicker">Prima pagina<span>${st.length} notizie</span></div><div class="grid">${tiles}</div>`:''}
     <div class="kicker">Sezioni<span>${data.posts.length} post</span></div><div class="secs">${cats}
     <a class="secrow all" href="#/tutto"><span class="emo">📰</span><b>Tutto il giornale</b><span class="n">${unseenOf(data.posts)} da vedere</span></a></div>`}
 function groupedHTML(posts){let html='';const g=new Map();posts.forEach(p=>{const k=p.story||p.id;if(!g.has(k))g.set(k,[]);g.get(k).push(p)});
   [...g].sort((a,b)=>(b[1].length>1)-(a[1].length>1)).forEach(([k,l])=>{html+=l.length>1?`<section class="story"><div class="lbl">${l.length} pagine ne parlano</div><h4>${esc(k)}</h4>${l.map(p=>postHTML(p,false)).join('')}</section>`:postHTML(l[0],false)});return html}
-function detailHTML(r){if(r.t==='s'){const st=stories(),s=st[r.i];if(!s)return'';const nx=st.slice(r.i+1).find(x=>unseenOf(x.posts))||st[r.i+1];
+function puntoHTML(){const P=data.punto;if(!P)return'';store.set('edicola-punto-'+data.edition,true);
+  return `<a class="back" href="#/">← Prima pagina</a><div class="dhead"><div class="emo">☕</div><h2>Il punto di stamattina</h2><p>Scritto da Claude alle 4, dalle notizie del web</p></div>`+
+  P.sezioni.map(x=>`<section class="psec"><div class="kicker">${esc(x.emoji||'')} ${esc(x.titolo)}</div>${(x.notizie||[]).map(n=>`<div class="pitem"><h3>${esc(n.titolo)}</h3><p>${esc(n.testo)}</p></div>`).join('')}</section>`).join('')+
+  ((P.fonti||[]).length?`<div class="fonti">Fonti: ${P.fonti.map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.titolo)}</a>`).join(' · ')}</div>`:'')+
+  `<a class="nextstory" href="#/"><small>Fatto</small><b>Ora le tue pagine →</b></a>`}
+function detailHTML(r){if(r.t==='punto')return puntoHTML();if(r.t==='s'){const st=stories(),s=st[r.i];if(!s)return'';const nx=st.slice(r.i+1).find(x=>unseenOf(x.posts))||st[r.i+1];
     return `<a class="back" href="#/">← Prima pagina</a><div class="dhead"><div class="emo">${esc(s.emoji||'🗞️')}</div><h2>${esc(s.titolo)}</h2><p>${s.posts.length} ${s.posts.length===1?'post':'post'} da ${new Set(s.posts.map(p=>p.page)).size} ${new Set(s.posts.map(p=>p.page)).size===1?'pagina':'pagine'}</p></div>
       ${s.posts.map(p=>postHTML(p)).join('')}${nx?`<a class="nextstory" href="#/s/${st.indexOf(nx)}"><small>Prossima notizia</small><b>${esc(nx.emoji||'')} ${esc(nx.titolo)}</b></a>`:`<a class="nextstory" href="#/"><small>Fine</small><b>Torna alla prima pagina</b></a>`}`}
   const l=data.posts.filter(p=>p.cat===r.c);
@@ -357,7 +380,7 @@ function detailHTML(r){if(r.t==='s'){const st=stories(),s=st[r.i];if(!s)return''
 function render(){
   const r=route(),isHome=r.t==='home',isAll=r.t==='tutto';
   document.querySelector('.hello').hidden=!isHome;$('#controls').hidden=!isAll;
-  $('#home').innerHTML=isHome?homeHTML():'';$('#detail').innerHTML=(r.t==='s'||r.t==='c')?detailHTML(r):'';
+  $('#home').innerHTML=isHome?homeHTML():'';$('#detail').innerHTML=(r.t==='s'||r.t==='c'||r.t==='punto')?detailHTML(r):'';
   if(!isAll){$('#feed').innerHTML='';$('#end').hidden=true;bind();schedule();return}
   const posts=visible(), feed=$('#feed');
   document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===view));
