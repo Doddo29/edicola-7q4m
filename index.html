@@ -120,6 +120,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 .row{display:flex;align-items:center;gap:10px}
 .row .seg{flex:1}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25}
+/* Barra di posizione e salto ai non visti */
+.rail{position:fixed;top:calc(env(safe-area-inset-top,0px) + 112px);bottom:calc(env(safe-area-inset-bottom,0px) + 84px);right:max(3px,env(safe-area-inset-right,0px));width:14px;z-index:8}
+.rail::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;border-radius:2px;background:var(--line)}
+.rail .thumb{position:absolute;left:4px;width:6px;border-radius:3px;background:rgba(238,232,221,.28);transition:top .08s linear}
+.rail .tick{position:absolute;left:2px;width:10px;height:10px;margin-top:-5px;border-radius:50%;padding:0;background:var(--clay);border:2px solid var(--bg)}
+.rail .tick.seen{background:var(--faint);width:6px;height:6px;left:4px;margin-top:-3px;border:0}
+.nextbtn{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;background:var(--clay);color:#1c1b19;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.nextbtn svg{flex:none}
+.badge.warm{border-color:var(--clay);color:var(--clay)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -158,6 +168,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
   <div class="end" id="end" hidden><b>✻</b>Per oggi è tutto.<br>La prossima edizione arriva domattina alle 5.</div>
 </main>
 
+<nav class="rail" id="rail" aria-label="Posizione nella pagina"><span class="thumb" id="thumb"></span></nav>
+<button class="nextbtn" id="nextBtn" hidden></button>
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" hidden role="dialog" aria-label="Testo">
   <div class="wrap">
@@ -184,6 +196,7 @@ const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MESI=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const WARM=new Set(['Promozione','Sponsorizzato','Fuori dal solito']);
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const longDate=d=>`${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]}`;
 function ago(t){const m=Math.round((Date.now()-new Date(t))/60000);if(m<60)return `${Math.max(m,1)} min fa`;const h=Math.round(m/60);if(h<24)return `${h} ${h===1?'ora':'ore'} fa`;const g=Math.round(h/24);return g===1?'ieri':`${g} giorni fa`}
@@ -212,7 +225,7 @@ function mediaHTML(p){const n=p.media.length;
 
 function postHTML(p,showCat=true){const s=!!seen[p.id];
   return `<article class="post${s?' is-seen':''}" data-id="${esc(p.id)}">
-  <div class="eyebrow">${showCat?`<span class="cat">${esc(p.cat)}</span><span>·</span>`:''}<span>${esc(p.pageName)}</span><span>·</span><span>${ago(p.time)}</span>${p.promo?'<span class="badge">Promozione</span>':''}${p.lang==='en'?'<span class="badge">Tradotto</span>':''}<span class="seen">${s?'✓ visto':''}</span></div>
+  <div class="eyebrow">${showCat?`<span class="cat">${esc(p.cat)}</span><span>·</span>`:''}<span>${esc(p.pageName)}</span><span>·</span><span>${ago(p.time)}</span>${(p.tags||[]).map(t=>`<span class="badge${WARM.has(t)?' warm':''}">${esc(t)}</span>`).join('')}${p.lang==='en'?'<span class="badge">Tradotto</span>':''}<span class="seen">${s?'✓ visto':''}</span></div>
   <h3>${esc(p.title)}</h3>
   <p class="summary">${esc(p.summary)}</p>
   ${mediaHTML(p)}
@@ -239,7 +252,7 @@ function render(){
     const key=view==='categoria'?'cat':'pageName';const g=new Map();posts.forEach(p=>{if(!g.has(p[key]))g.set(p[key],[]);g.get(p[key]).push(p)});
     g.forEach((list,k)=>{html+=`<section class="group"><div class="ghead"><h3>${esc(k)}</h3><span>${list.length} ${list.length===1?'post':'post'}</span></div>${list.map(p=>postHTML(p,view!=='categoria')).join('')}</section>`});
   }
-  feed.innerHTML=html;$('#end').hidden=false;bind();
+  feed.innerHTML=html;$('#end').hidden=false;bind();schedule();
 }
 
 function updateCounts(){const tot=data.posts.length,n=data.posts.filter(p=>seen[p.id]).length;
@@ -268,8 +281,27 @@ function bind(){
     else{clearTimeout(timers.get(id));timers.delete(id)}}),{threshold:.55});
   document.querySelectorAll('.post').forEach(p=>io.observe(p));
 }
+const rail=$('#rail'),thumb=$('#thumb'),nextBtn=$('#nextBtn');let raf=0;
+function layoutRail(){raf=0;const H=document.documentElement.scrollHeight,vh=innerHeight,rh=rail.clientHeight;if(!rh)return;
+  thumb.style.height=Math.max(18,rh*vh/H)+'px';thumb.style.top=(rh*scrollY/H)+'px';
+  const posts=[...document.querySelectorAll('.post')];
+  rail.querySelectorAll('.tick').forEach(t=>t.remove());
+  posts.forEach(p=>{const b=document.createElement('button');b.className='tick'+(seen[p.dataset.id]?' seen':'');
+    b.style.top=(rh*(p.getBoundingClientRect().top+scrollY)/H)+'px';b.setAttribute('aria-label',p.querySelector('h3').textContent);
+    b.onclick=()=>p.scrollIntoView({behavior:'smooth',block:'start'});rail.appendChild(b)});
+  const unseen=posts.filter(p=>!seen[p.dataset.id]);const top=scrollY+130,bottom=scrollY+vh;
+  const below=unseen.filter(p=>p.getBoundingClientRect().top+scrollY>bottom-120);
+  const above=unseen.filter(p=>p.getBoundingClientRect().bottom+scrollY<top);
+  const target=below[0]||above[above.length-1];
+  if(!target){nextBtn.hidden=true;return}
+  const down=!!below[0],n=down?below.length:above.length;
+  nextBtn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate(${down?0:180}deg)"><path d="M12 5v14M5 12l7 7 7-7"/></svg>${n} da vedere ${down?'più giù':'più su'}`;
+  nextBtn.hidden=false;nextBtn.onclick=()=>target.scrollIntoView({behavior:'smooth',block:'start'})}
+const schedule=()=>{if(!raf)raf=requestAnimationFrame(layoutRail)};
+addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);
+new ResizeObserver(schedule).observe(document.body);
 function markSeen(el){const id=el.dataset.id;if(seen[id])return;seen[id]=Date.now();store.set('edicola-seen-'+data.edition,seen);
-  el.classList.add('is-seen');const s=el.querySelector('.seen');if(s)s.textContent='✓ visto';updateCounts()}
+  el.classList.add('is-seen');const s=el.querySelector('.seen');if(s)s.textContent='✓ visto';updateCounts();schedule()}
 
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;store.set('edicola-view',view);render()});
 const openSheet=o=>{$('#sheet').hidden=!o;$('#scrim').hidden=!o};
