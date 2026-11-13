@@ -47,6 +47,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 .progress{display:flex;gap:3px;margin-top:10px;height:3px}
 .progress i{flex:1;background:var(--line);border-radius:2px;transition:background .3s}
 .progress i.on{background:var(--clay)}
+.progress.fill{background:var(--line);border-radius:2px;gap:0}
+.progress.fill b{display:block;height:100%;background:var(--clay);border-radius:2px;transition:width .3s}
 .bar .meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);padding:6px 0 8px;font-variant-numeric:tabular-nums}
 
 /* Saluto */
@@ -126,10 +128,29 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
 .rail .thumb{position:absolute;left:4px;width:6px;border-radius:3px;background:rgba(238,232,221,.28);transition:top .08s linear}
 .rail .tick{position:absolute;left:2px;width:10px;height:10px;margin-top:-5px;border-radius:50%;padding:0;background:var(--clay);border:2px solid var(--bg)}
 .rail .tick.seen{background:var(--faint);width:6px;height:6px;left:4px;margin-top:-3px;border:0}
-.nextbtn{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9;display:inline-flex;align-items:center;gap:8px;
+.nextbtn{position:fixed;right:max(26px,calc(env(safe-area-inset-right,0px) + 26px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9;display:inline-flex;align-items:center;gap:8px;
   padding:10px 16px;border-radius:999px;background:var(--clay);color:#1c1b19;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.45)}
 .nextbtn svg{flex:none}
 .badge.warm{border-color:var(--clay);color:var(--clay)}
+
+/* Briciola, il pet dell'Edicola */
+.pet{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:9;width:54px;height:54px;padding:0}
+.pet svg{width:54px;height:54px;display:block;animation:bob 3.4s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.pet .eyes{transform-origin:32px 37px;animation:blink 5.5s infinite}
+.pet .happy,.pet .zz,.pet .closed{opacity:0}
+.pet.happy .eyes{opacity:0}.pet.happy .happy{opacity:1}
+.pet.sleepy .eyes{opacity:0}.pet.sleepy .closed,.pet.sleepy .zz{opacity:1}
+.pet.sleepy svg{animation-duration:6s}
+.pet.sleepy .zz{animation:zz 3s ease-in-out infinite}
+.pet.hop svg{animation:hop .5s ease-out}
+.pet .bubble{position:absolute;left:4px;bottom:62px;width:max-content;max-width:min(240px,calc(100vw - 100px));background:var(--raised);border:1px solid var(--line);color:var(--fg);
+  font:14px/1.4 var(--sans);text-align:left;padding:8px 12px;border-radius:14px 14px 14px 4px;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s;pointer-events:none}
+.pet.say .bubble{opacity:1;transform:none}
+.pet[hidden]{display:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-12px) rotate(-6deg)}70%{transform:translateY(0) scaleY(.92)}100%{transform:none}}
+@keyframes zz{0%,100%{transform:translate(0,0);opacity:.2}50%{transform:translate(3px,-4px);opacity:.9}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -165,11 +186,27 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
   </section>
 
   <div id="feed"></div>
-  <div class="end" id="end" hidden><b>✻</b>Per oggi è tutto.<br>La prossima edizione arriva domattina alle 5.</div>
+  <div class="end" id="end" hidden><b>✻</b>Per oggi è tutto.<br>La prossima edizione arriva domattina presto.</div>
 </main>
 
 <nav class="rail" id="rail" aria-label="Posizione nella pagina"><span class="thumb" id="thumb"></span></nav>
 <button class="nextbtn" id="nextBtn" hidden></button>
+<button class="pet" id="pet" aria-label="Briciola, il pet dell'Edicola">
+  <svg viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M32 19c0-5 2-8 6-9" fill="none" stroke="#8fae7e" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M38 10c3-2 7-1 8 1-3 2-6 2-8-1z" fill="#8fae7e"/>
+    <ellipse cx="23" cy="56" rx="6" ry="3.2" fill="#b85f43"/><ellipse cx="41" cy="56" rx="6" ry="3.2" fill="#b85f43"/>
+    <ellipse cx="32" cy="38" rx="22" ry="19" fill="#d97757"/>
+    <ellipse cx="25" cy="29" rx="7" ry="4" fill="#fff" opacity=".16"/>
+    <circle cx="19" cy="44" r="3.2" fill="#f2a58a" opacity=".55"/><circle cx="45" cy="44" r="3.2" fill="#f2a58a" opacity=".55"/>
+    <g class="eyes" fill="#1c1b19"><ellipse cx="25" cy="37" rx="2.8" ry="3.8"/><ellipse cx="39" cy="37" rx="2.8" ry="3.8"/><circle cx="26" cy="35.6" r=".9" fill="#fff"/><circle cx="40" cy="35.6" r=".9" fill="#fff"/></g>
+    <g class="happy" fill="none" stroke="#1c1b19" stroke-width="2.2" stroke-linecap="round"><path d="M21.5 38q3.5-5 7 0M35.5 38q3.5-5 7 0"/></g>
+    <g class="closed" fill="none" stroke="#1c1b19" stroke-width="2" stroke-linecap="round"><path d="M22 37.5q3 2 6 0M36 37.5q3 2 6 0"/></g>
+    <path d="M29.5 44q2.5 2.4 5 0" fill="none" stroke="#1c1b19" stroke-width="1.8" stroke-linecap="round"/>
+    <text class="zz" x="50" y="20" fill="#cfc7b9" font-family="Inter,sans-serif" font-size="10" font-weight="600">z</text>
+  </svg>
+  <span class="bubble" id="petSay" role="status"></span>
+</button>
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" hidden role="dialog" aria-label="Testo">
   <div class="wrap">
@@ -186,6 +223,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--clay);outline-offse
         <button id="s-3" data-size="1.1" aria-pressed="false">Grande</button>
       </div>
     </div>
+    <h4>Briciola</h4>
+    <div class="seg" role="group">
+      <button data-pet="1" aria-pressed="true">Con me</button>
+      <button data-pet="0" aria-pressed="false">A nanna</button>
+    </div>
   </div>
 </div>
 
@@ -196,7 +238,7 @@ const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MESI=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
-const WARM=new Set(['Promozione','Sponsorizzato','Fuori dal solito']);
+const WARM=new Set(['Promozione','Sponsorizzato','Fuori dal solito','Da non perdere']);
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const longDate=d=>`${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]}`;
 function ago(t){const m=Math.round((Date.now()-new Date(t))/60000);if(m<60)return `${Math.max(m,1)} min fa`;const h=Math.round(m/60);if(h<24)return `${h} ${h===1?'ora':'ore'} fa`;const g=Math.round(h/24);return g===1?'ieri':`${g} giorni fa`}
@@ -206,6 +248,21 @@ function greeting(){const h=new Date().getHours();
   if(h>=18&&h<23)return['Buonasera, Eduardo.',['Ultimo giro prima di staccare.','Ecco la giornata, con calma.']];
   return['Ancora sveglio, Eduardo?',['Due righe e poi a dormire.','Domattina ce n\'è un\'altra.']]}
 
+
+// Briciola: reagisce a quello che leggi, all'ora e ai tocchi
+const pet=(()=>{const el=$('#pet'),say=$('#petSay');let t=0,left=0,tot=0,first=true;
+  const night=()=>{const h=new Date().getHours();return h>=23||h<5};
+  const speak=(m,ms=3800)=>{say.textContent=m;el.classList.add('say');clearTimeout(t);t=setTimeout(()=>el.classList.remove('say'),ms)};
+  const mood=()=>{el.classList.toggle('happy',tot>0&&left===0);el.classList.toggle('sleepy',night()&&left>0)};
+  const lines=()=>{if(!tot)return['Sto aspettando l\'edizione…'];if(!left)return['Finito tutto! Bravo Eduardo.','Per oggi siamo a posto. Ci vediamo domattina.','Edicola chiusa, si va a vivere.'];
+    const l=[`Ne mancano ${left}. Con calma.`,'Se una cosa ti incuriosisce, apri il post completo.','Il caffè l\'hai preso?','Tocca il pallino arancione a destra per saltare ai post nuovi.'];
+    if(night())l.unshift('È tardi… ne leggiamo due e poi a nanna?');return l};
+  let i=0;el.onclick=()=>{el.classList.remove('hop');void el.offsetWidth;el.classList.add('hop');const l=lines();speak(l[i++%l.length])};
+  const on=()=>{el.hidden=!store.get('edicola-pet',true);document.querySelectorAll('[data-pet]').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.pet==='1')===!el.hidden))};
+  document.querySelectorAll('[data-pet]').forEach(b=>b.onclick=()=>{store.set('edicola-pet',b.dataset.pet==='1');on()});on();
+  return{update(l,n){const prev=left;left=l;tot=n;mood();
+      if(first){first=false;speak(night()?'Zzz… ah, sei tu. Ciao Eduardo.':l?`Edizione nuova: ${n} post ti aspettano.`:'Hai già visto tutto, campione.',4200);return}
+      if(l<prev){el.classList.remove('hop');void el.offsetWidth;el.classList.add('hop');if(l===0)speak('Finito tutto! Bravo Eduardo.',5000);else if(l%10===0)speak(`Ne mancano ${l}.`)}}}})();
 let data=null, view=store.get('edicola-view','notizia'), cat='Tutte', hideSeen=store.get('edicola-hide',false);
 let seen={};
 
@@ -238,14 +295,15 @@ function visible(){return data.posts.filter(p=>(cat==='Tutte'||p.cat===cat)&&(!h
 function render(){
   const posts=visible(), feed=$('#feed');
   document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===view));
-  const cats=['Tutte',...new Set(data.posts.map(p=>p.cat))];
+  const cats=['Tutte',...(data.cats||new Set(data.posts.map(p=>p.cat)))];
   $('#chips').innerHTML=cats.map(c=>`<button class="chip" data-cat="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('')+
     `<button class="chip toggle" id="hideSeen" aria-pressed="${hideSeen}">${hideSeen?'Mostra i visti':'Nascondi i visti'}</button>`;
   if(!posts.length){feed.innerHTML=`<div class="empty">${hideSeen?'Hai visto tutto quello che c\'era qui.':'Niente in questa categoria oggi.'}</div>`;$('#end').hidden=true;bind();return}
   let html='';
   if(view==='notizia'){
     const stories=new Map();posts.forEach(p=>{const k=p.story||p.id;if(!stories.has(k))stories.set(k,[]);stories.get(k).push(p)});
-    stories.forEach((list,k)=>{html+=list.length>1
+    const co=new Map((data.cats||[]).map((c,i)=>[c,i]));
+    [...stories.entries()].sort((a,b)=>(b[1].length>1)-(a[1].length>1)||(co.get(a[1][0].cat)??99)-(co.get(b[1][0].cat)??99)||new Date(b[1][0].time)-new Date(a[1][0].time)).forEach(([k,list])=>{html+=list.length>1
       ?`<section class="story"><div class="lbl">${list.length} pagine ne parlano</div><h4>${esc(k)}</h4>${list.map(p=>postHTML(p)).join('')}</section>`
       :postHTML(list[0])});
   }else{
@@ -260,7 +318,9 @@ function updateCounts(){const tot=data.posts.length,n=data.posts.filter(p=>seen[
   const left=data.posts.filter(p=>!seen[p.id]);
   const words=left.reduce((a,p)=>a+(p.summary+' '+p.caption).split(/\s+/).length,0);
   $('#readTime').textContent=left.length?`circa ${Math.max(1,Math.round(words/220))} min da leggere`:'tutto letto';
-  $('#progress').innerHTML=data.posts.map(p=>`<i class="${seen[p.id]?'on':''}"></i>`).join('');
+  const pr=$('#progress');pr.classList.toggle('fill',tot>40);
+  pr.innerHTML=tot>40?`<b style="width:${tot?100*n/tot:0}%"></b>`:data.posts.map(p=>`<i class="${seen[p.id]?'on':''}"></i>`).join('');
+  pet.update(left.length,tot);
   const [g,lines]=greeting();$('#greet').textContent=g;
   const line=lines[new Date().getDate()%lines.length];
   $('#intro').textContent=left.length?`${line} Le tue pagine hanno pubblicato ${tot} post: te ne restano ${left.length}.`:`${line} Hai già visto tutto: ci rivediamo domattina.`}
@@ -315,7 +375,7 @@ fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{data=d;
   const ed=new Date(d.edition+'T12:00:00'),up=new Date(d.updated);
   $('#dateline').textContent=`${cap(longDate(ed))} · aggiornata alle ${up.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}`;
   const today=new Date();today.setHours(12,0,0,0);
-  if(Math.round((today-ed)/864e5)>=1){$('#stale').hidden=false;$('#stale').textContent=`Questa è l'edizione di ${longDate(ed)}. Quella di oggi arriva alle 5.`}
+  if(Math.round((today-ed)/864e5)>=1){$('#stale').hidden=false;$('#stale').textContent=`Questa è l'edizione di ${longDate(ed)}. Quella di oggi arriva prestissimo.`}
   updateCounts();render();
 }).catch(()=>{$('#intro').textContent='Non riesco a caricare l\'edizione di oggi. Riprova tra poco.'});
 })();

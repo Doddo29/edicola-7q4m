@@ -1,0 +1,717 @@
+{
+ "categorie": [
+  "Notizie",
+  "Napoli",
+  "Università",
+  "Calcio",
+  "Tech e IA",
+  "Internet",
+  "Cultura",
+  "Design e marketing",
+  "Spettacolo e stile",
+  "Risate",
+  "Benessere"
+ ],
+ "pagine": [
+  {
+   "u": "cnc_media",
+   "nome": "CNC Media",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "corriere",
+   "nome": "Corriere della Sera",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "larepubblica",
+   "nome": "la Repubblica",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "tgcom24",
+   "nome": "Tgcom24",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "difesa.italia",
+   "nome": "Difesa Italia",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "factanza",
+   "nome": "Factanza",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "will_ita",
+   "nome": "Will",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "torcha",
+   "nome": "Torcha",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "novalectio",
+   "nome": "Nova Lectio",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "worldy.it",
+   "nome": "Worldy",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "fraoggiano",
+   "nome": "Francesco Oggiano",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "simona_ravizza",
+   "nome": "Simona Ravizza",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "maranga9000",
+   "nome": "Mattia Marangon",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "geopop",
+   "nome": "Geopop",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "alessandro.beloli",
+   "nome": "Alessandro Beloli",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "aliseo",
+   "nome": "Aliseo",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "matteogracis",
+   "nome": "Matteo Gracis",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "mediapositivo",
+   "nome": "Media Positivo",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "olimpia.peroni",
+   "nome": "Olimpia Peroni",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "h.omosapiens",
+   "nome": "H.omosapiens",
+   "cat": "Notizie",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "teleclubitalia",
+   "nome": "Teleclub Italia",
+   "cat": "Napoli",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "skuolanet",
+   "nome": "Skuola.net",
+   "cat": "Università",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "sapienzafutura",
+   "nome": "Sapienza Futura",
+   "cat": "Università",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "sapienzaroma",
+   "nome": "Sapienza",
+   "cat": "Università",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "discolazio",
+   "nome": "DiSCo Lazio",
+   "cat": "Università",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "giovannifenu.memovia",
+   "nome": "Giovanni Fenu",
+   "cat": "Università",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "alessandrodeconcini",
+   "nome": "Alessandro De Concini",
+   "cat": "Università",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "433",
+   "nome": "433",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "calciatoribrutti",
+   "nome": "Calciatori Brutti",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "dazn_it",
+   "nome": "DAZN Italia",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "gazzettadellosport",
+   "nome": "La Gazzetta dello Sport",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "skysport",
+   "nome": "Sky Sport",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "dnadabomber",
+   "nome": "DNA da Bomber",
+   "cat": "Calcio",
+   "briefing": false,
+   "alto": true
+  },
+  {
+   "u": "fabriziorom",
+   "nome": "Fabrizio Romano",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": true
+  },
+  {
+   "u": "worldysport",
+   "nome": "Worldy Sport",
+   "cat": "Calcio",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "tuttialvar_",
+   "nome": "Tutti al Var",
+   "cat": "Calcio",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nascecrescecalcia",
+   "nome": "Nasce Cresce Calcia",
+   "cat": "Calcio",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "ai__facile",
+   "nome": "AI Facile",
+   "cat": "Tech e IA",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "aclas.io",
+   "nome": "Aclas",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "affaridanerd",
+   "nome": "Affari da Nerd",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "betaprofiles",
+   "nome": "Beta Profiles",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "devpunks_",
+   "nome": "Devpunks",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "hackerpassivoaggressivo",
+   "nome": "Hacker Passivo Aggressivo",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "datapasta_",
+   "nome": "Datapasta",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "ingegneria.italia",
+   "nome": "Ingegneria Italia",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "techdale.it",
+   "nome": "TechDale",
+   "cat": "Tech e IA",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "smartworld.it",
+   "nome": "SmartWorld",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "techy_ita",
+   "nome": "Techy",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "this_is_my_tech",
+   "nome": "Alessandro Fabris",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "wireditalia",
+   "nome": "Wired Italia",
+   "cat": "Tech e IA",
+   "briefing": true,
+   "alto": false
+  },
+  {
+   "u": "worldytech",
+   "nome": "Worldy Tech",
+   "cat": "Tech e IA",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "lasediaa2gambe",
+   "nome": "La Sedia a 2 Gambe",
+   "cat": "Internet",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "poldo_ufficiale",
+   "nome": "Poldo",
+   "cat": "Internet",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "the_real_saturno",
+   "nome": "Saturno",
+   "cat": "Internet",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "matteobarresi_",
+   "nome": "Matteo Barresi",
+   "cat": "Internet",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "archivio.del.passato",
+   "nome": "Archivio del Passato",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "tempushistoriae.official",
+   "nome": "Tempus Historiae",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "filosofiascienza",
+   "nome": "Riccardo Azzali",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "ilpareredellostorico",
+   "nome": "Il parere dello storico",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "lastoriaperted",
+   "nome": "Daniela Tedone",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "operedarte",
+   "nome": "Opere d'arte",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "robertomercadini",
+   "nome": "Roberto Mercadini",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "ruggerorollini",
+   "nome": "Ruggero Rollini",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "sessuologia",
+   "nome": "Sessuologia",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "alessandro__carnevale",
+   "nome": "Alessandro Carnevale",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "abbozzo._",
+   "nome": "Abbozzo",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "matteodalfiume",
+   "nome": "Matteo Dalfiume",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "side_book",
+   "nome": "Side Book",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "prolissopodcast",
+   "nome": "Prolisso",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "pulp.podcast",
+   "nome": "Pulp Podcast",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "bsmt_basement",
+   "nome": "BSMT",
+   "cat": "Cultura",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "marketing.ignorante",
+   "nome": "Marketing Ignorante",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "marketing_espresso",
+   "nome": "Marketing Espresso",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "caffe_design",
+   "nome": "Caffè Design",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "breccia.riccardo",
+   "nome": "Riccardo Breccia",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "leocametti",
+   "nome": "Leo Cametti",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "marco.dixit",
+   "nome": "Marco Dixit",
+   "cat": "Design e marketing",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "bloopersmagazine",
+   "nome": "Bloopers",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "cinefacts.it",
+   "nome": "CineFacts",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "joingrooves",
+   "nome": "Grooves",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "lascimmiasente",
+   "nome": "La Scimmia Sente",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "lascimmiapensa",
+   "nome": "La Scimmia Pensa",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "lascimmiagioca",
+   "nome": "La Scimmia Gioca",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "outpump",
+   "nome": "Outpump",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "zerotrecinque",
+   "nome": "035 Zerotrecinque",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "222store",
+   "nome": "222 Store",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "notjustveliu",
+   "nome": "Not Just Veliu",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "worldymusic",
+   "nome": "Worldy Music",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nascecrescestreamma",
+   "nome": "Nasce Cresce Streamma",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nascecrescerespawna",
+   "nome": "Nasce Cresce Respawna",
+   "cat": "Spettacolo e stile",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nascecresceignora",
+   "nome": "Nasce Cresce Ignora",
+   "cat": "Risate",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "nascecresceinforma",
+   "nome": "Nasce Cresce Informa",
+   "cat": "Risate",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "quelmomento",
+   "nome": "Quel Momento",
+   "cat": "Risate",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "agnod3",
+   "nome": "Agnod",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "zenxogg",
+   "nome": "Zenxogg",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "progettohappiness",
+   "nome": "Progetto Happiness",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "notorious_foodie",
+   "nome": "Notorious Foodie",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "fluffy.revolution",
+   "nome": "Fluffy Revolution",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "noha.rabasco",
+   "nome": "Noha Rabasco",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  },
+  {
+   "u": "beardedscara",
+   "nome": "Pelato con la barba",
+   "cat": "Benessere",
+   "briefing": false,
+   "alto": false
+  }
+ ]
+}
