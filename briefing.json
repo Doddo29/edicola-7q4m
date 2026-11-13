@@ -1,0 +1,593 @@
+{
+ "edition": "2026-11-13",
+ "sito": "https://doddo29.github.io/edicola-7q4m/",
+ "post": 219,
+ "pagine": 74,
+ "per_categoria": {
+  "Notizie": 50,
+  "Napoli": 4,
+  "Università": 15,
+  "Calcio": 36,
+  "Tech e IA": 22,
+  "Cultura": 17,
+  "Design e marketing": 11,
+  "Spettacolo e stile": 52,
+  "Risate": 7,
+  "Benessere": 5
+ },
+ "notizie_dalle_pagine": [
+  {
+   "pagina": "Tgcom24",
+   "cat": "Notizie",
+   "titolo": "Famiglia nel bosco, la Corte d'Appello respinge il reclamo",
+   "riassunto": "La Corte d'Appello dell'Aquila ha confermato le decisioni del Tribunale per i minorenni sulla famiglia Birmingham Trevallion. L'avvocato Simone Pillon annuncia ricorso in Cassazione."
+  },
+  {
+   "pagina": "la Repubblica",
+   "cat": "Notizie",
+   "titolo": "Guanti da lavoro usati trasformati in isolante per case",
+   "riassunto": "Il settore delle costruzioni produce tantissimi rifiuti nascosti. Il progetto ISOGANTS, ideato dall'ingegnere francese Alexis Le Dez, ricicla i guanti da lavoro dismessi per farne materiale isolante per i muri: un esempio di economia circolare, cioè di riuso degli scarti."
+  },
+  {
+   "pagina": "Worldy",
+   "cat": "Notizie",
+   "titolo": "La Route 66 compie cento anni",
+   "riassunto": "Inaugurata nel 1926, la strada lunga quasi 4.000 km collegava Chicago alla California. Prima di diventare un mito turistico fu la via di fuga di chi scappava dalla Grande Depressione e dalla siccità."
+  },
+  {
+   "pagina": "Will",
+   "cat": "Notizie",
+   "titolo": "Fuorisede al voto: iscrizioni entro fine anno",
+   "riassunto": "Per la prima volta chi vive lontano dal proprio comune potrà votare alle elezioni politiche dove studia o lavora. Per farlo alle politiche del prossimo anno bisogna registrarsi entro la fine di quest'anno."
+  },
+  {
+   "pagina": "Geopop",
+   "cat": "Notizie",
+   "titolo": "Chi misura la qualità dell'aria in Italia",
+   "riassunto": "Geopop spiega come si stabilisce se l'aria di una zona, in un certo giorno, è buona, e chi fa queste misurazioni. Il contenuto è una collaborazione pubblicitaria."
+  },
+  {
+   "pagina": "Teleclub Italia",
+   "cat": "Napoli",
+   "titolo": "Furto notturno in un negozio di via Frezza",
+   "riassunto": "I ladri hanno distrutto saracinesca e ingresso e rubato cassa e attrezzi; la polizia ha recuperato parte della refurtiva. Il titolare ha avviato una raccolta fondi per ripartire."
+  },
+  {
+   "pagina": "la Repubblica",
+   "cat": "Notizie",
+   "titolo": "La maggioranza boccia lo stop ai prodotti delle colonie israeliane",
+   "riassunto": "In commissione Esteri la maggioranza ha respinto la proposta delle opposizioni di vietare l'importazione di merci dagli insediamenti israeliani nei territori palestinesi occupati. Il testo arriverà in aula alla Camera la prossima settimana."
+  },
+  {
+   "pagina": "Sky Sport",
+   "cat": "Calcio",
+   "titolo": "Tutti i record di Harry Kane con l'Inghilterra",
+   "riassunto": "Kane è il miglior marcatore della storia della nazionale inglese e detiene molti altri primati: più gol a Wembley, da capitano, su rigore e ai Mondiali."
+  },
+  {
+   "pagina": "Fabrizio Romano",
+   "cat": "Calcio",
+   "titolo": "Il Real Madrid prende il 19enne ghanese Latif Issman",
+   "riassunto": "Il centrocampista ghanese arriverà a Madrid nel 2027 e giocherà prima nella squadra riserve, il Castilla. Il club lo considera già un possibile giocatore della prima squadra."
+  },
+  {
+   "pagina": "Corriere della Sera",
+   "cat": "Notizie",
+   "titolo": "Kimi Antonelli applaudito da San Siro",
+   "riassunto": "Il campione di Formula 1 era sugli spalti di Italia-Francia: inquadrato dalle telecamere, ha ricevuto l'applauso dello stadio e ha reagito con un «wow» commosso."
+  },
+  {
+   "pagina": "Nova Lectio",
+   "cat": "Notizie",
+   "titolo": "Bukele porta la sua guerra alle gang ad Haiti",
+   "riassunto": "Il presidente di El Salvador ha portato a diverse migliaia di uomini il contingente nella missione Onu ad Haiti. Secondo Nova Lectio vuole esportare il suo modello di repressione durissima delle gang e usarlo come strumento di influenza internazionale."
+  },
+  {
+   "pagina": "la Repubblica",
+   "cat": "Notizie",
+   "titolo": "Il boato di San Siro per Kimi Antonelli",
+   "riassunto": "Durante Italia-Francia, vinta 3-1 dagli azzurri, il campione del mondo di Formula 1 è stato accolto da un grande applauso dello stadio."
+  },
+  {
+   "pagina": "Tgcom24",
+   "cat": "Notizie",
+   "titolo": "Finta bomba vicino a una scuola di Roma, denunciato un 22enne",
+   "riassunto": "Un ex studente ha lasciato un finto ordigno, fatto con un'antenna e una power bank, in una cabina elettrica vicino all'istituto Fermi, con una lettera firmata da una sigla di estrema destra. È stato denunciato per procurato allarme e ha parlato di ingiustizie subite a scuola."
+  },
+  {
+   "pagina": "Teleclub Italia",
+   "cat": "Napoli",
+   "titolo": "Bloccato il profilo TikTok del creator Mario Mario",
+   "riassunto": "L'account del creator campano, con circa 1,3 milioni di follower, è stato disattivato pochi giorni dopo l'inchiesta di Fanpage sulle sfide in diretta. Non è stato accertato alcun legame tra i due fatti e le ragioni del blocco non sono note."
+  },
+  {
+   "pagina": "la Repubblica",
+   "cat": "Notizie",
+   "titolo": "Spagna, al via la campagna per il voto del 29 novembre",
+   "riassunto": "Dopo lo sciopero generale dell'11 novembre è partita la campagna per le elezioni anticipate. I sondaggi danno favorite le destre, ma il premier Pedro Sánchez punta a una rimonta e ha aperto a Siviglia."
+  },
+  {
+   "pagina": "Sky Sport",
+   "cat": "Calcio",
+   "titolo": "Quando segna Frattesi l'Italia vince sempre",
+   "riassunto": "Contro la Francia è arrivato il decimo gol in nazionale per il centrocampista: in tutte le partite in cui ha segnato l'Italia ha vinto."
+  },
+  {
+   "pagina": "Sky Sport",
+   "cat": "Calcio",
+   "titolo": "Fàbregas guarda tre partite contemporaneamente",
+   "riassunto": "Durante la pausa per le nazionali l'allenatore del Como si è rilassato seguendo tre partite di Nations League su tre schermi. La foto è della moglie."
+  },
+  {
+   "pagina": "CNC Media",
+   "cat": "Benessere",
+   "titolo": "Tornare in palestra dopo una lunga pausa",
+   "riassunto": "Una riflessione su come ricominciare l'attività sportiva senza confrontarsi con chi si era anni fa. È un contenuto pubblicitario di Unipol Assicurazioni."
+  },
+  {
+   "pagina": "Sky Sport",
+   "cat": "Calcio",
+   "titolo": "Scaloni verso un record con l'Argentina",
+   "riassunto": "Il commissario tecnico dell'Albiceleste può diventare il primo a guidare l'Argentina in tre edizioni diverse dei Mondiali."
+  },
+  {
+   "pagina": "Corriere della Sera",
+   "cat": "Notizie",
+   "titolo": "Mattarella riceve i campioni paralimpici 2026",
+   "riassunto": "Al Quirinale il presidente ha incontrato atleti, tecnici e dirigenti del Comitato Italiano Paralimpico, con parole di stima per il loro impegno."
+  },
+  {
+   "pagina": "Teleclub Italia",
+   "cat": "Napoli",
+   "titolo": "Truffe agli anziani, il bottino viaggiava per posta",
+   "riassunto": "I carabinieri di Napoli hanno intercettato quattro pacchi diretti a una finta onlus con la refurtiva delle truffe: in uno c'erano soldi, gioielli e due pistole."
+  },
+  {
+   "pagina": "Tgcom24",
+   "cat": "Notizie",
+   "titolo": "Paola Barale racconta il suo tumore",
+   "riassunto": "A «Le Iene» la showgirl parla del carcinoma legato al papillomavirus scoperto un anno fa, delle cure e della remissione completa. «Non ho mai voluto sentirmi vittima», dice."
+  },
+  {
+   "pagina": "Sapienza Futura",
+   "cat": "Università",
+   "titolo": "Sapienza Futura festeggia due anni di attività",
+   "riassunto": "L'associazione studentesca racconta più di mille eventi in due anni, con l'obiettivo di rendere l'università un luogo di cultura, socialità e confronto."
+  },
+  {
+   "pagina": "Calciatori Brutti",
+   "cat": "Calcio",
+   "titolo": "Pio Esposito, 9 gol in 14 partite in nazionale",
+   "riassunto": "Con la doppietta alla Francia l'attaccante di 21 anni ha raggiunto i gol segnati da Totti in azzurro, ma in 44 partite in meno. La pagina critica chi continua a sminuirlo."
+  },
+  {
+   "pagina": "Teleclub Italia",
+   "cat": "Napoli",
+   "titolo": "Afragola, quarta sparatoria in meno di un giorno",
+   "riassunto": "Nella notte circa quaranta colpi sono stati sparati contro un palazzo del rione Salicelle. Secondo Il Mattino sarebbero state usate armi automatiche; gli autori non sono stati identificati."
+  },
+  {
+   "pagina": "La Gazzetta dello Sport",
+   "cat": "Calcio",
+   "titolo": "Van Dijk apre all'addio al Liverpool, il Milan ci pensa",
+   "riassunto": "Il difensore olandese ha detto che, senza rinnovo, a fine contratto potrebbe andare via. Secondo la Gazzetta il proprietario del Milan Gerry Cardinale e Ibrahimović lo apprezzano molto."
+  },
+  {
+   "pagina": "Worldy Sport",
+   "cat": "Calcio",
+   "titolo": "L'Italia batte la Francia in casa dopo 64 anni",
+   "riassunto": "Non succedeva dal 1962. Ora agli azzurri basta un risultato positivo in Belgio per arrivare ai quarti di Nations League."
+  },
+  {
+   "pagina": "433",
+   "cat": "Calcio",
+   "titolo": "Due fratelli insieme in campo",
+   "riassunto": "Una galleria di foto su fratelli che condividono il campo, con una sola frase: «Niente di meglio che giocare con tuo fratello»."
+  },
+  {
+   "pagina": "Tgcom24",
+   "cat": "Notizie",
+   "titolo": "Frana a La Spezia travolge le auto di un parcheggio",
+   "riassunto": "Nel quartiere Valdellora è crollato un muro di contenimento con tonnellate di terra. Nessuna persona coinvolta; nove famiglie sono state evacuate."
+  },
+  {
+   "pagina": "Corriere della Sera",
+   "cat": "Notizie",
+   "titolo": "Sopravvissuti all'incendio di Crans-Montana raccontano la cura",
+   "riassunto": "Al Tempo della Salute due ragazzi ustionati nel rogo di Capodanno, i loro padri e il medico del Centro Ustioni del Niguarda spiegano come si curano il corpo e la mente dopo gravi ustioni."
+  },
+  {
+   "pagina": "Fabrizio Romano",
+   "cat": "Calcio",
+   "titolo": "Pochettino ha firmato con il Manchester United",
+   "riassunto": "Secondo Fabrizio Romano l'allenatore argentino guiderà ancora gli Stati Uniti per due partite e poi andrà a Manchester. L'annuncio ufficiale è atteso nel fine settimana."
+  },
+  {
+   "pagina": "AI Facile",
+   "cat": "Tech e IA",
+   "titolo": "Jensen Huang lascia Nvidia dopo 33 anni",
+   "riassunto": "Il fondatore si è dimesso con effetto immediato dopo le notizie su relazioni extraconiugali, una con una donna sospettata dall'intelligence americana di essere una spia cinese. La direttrice finanziaria Colette Kress è amministratrice delegata ad interim e il titolo ha perso oltre il 20% in un mese."
+  },
+  {
+   "pagina": "DAZN Italia",
+   "cat": "Calcio",
+   "titolo": "Pio Esposito punta il record di Gigi Riva",
+   "riassunto": "Con 9 gol a 21 anni l'attaccante inizia la rincorsa ai 35 di Riva, miglior marcatore di sempre della nazionale."
+  },
+  {
+   "pagina": "Factanza",
+   "cat": "Notizie",
+   "titolo": "Le notizie del 13 novembre",
+   "riassunto": "La consueta rassegna di Factanza con le principali notizie della giornata, raccolte in un carosello di immagini: sfogliale qui sotto."
+  },
+  {
+   "pagina": "La Gazzetta dello Sport",
+   "cat": "Calcio",
+   "titolo": "Pio Esposito supera Vieri: 9 gol in 14 partite",
+   "riassunto": "Con la doppietta alla Francia l'attaccante dell'Inter fa meglio di Bobo Vieri nelle prime 14 presenze in nazionale."
+  },
+  {
+   "pagina": "Corriere della Sera",
+   "cat": "Notizie",
+   "titolo": "Allarmi bomba via email: il Viminale dice di non evacuare",
+   "riassunto": "Una circolare del ministero dell'Interno stabilisce che, senza elementi concreti oltre alle email di massa, gli edifici non vanno evacuati, per evitare il caos di mercoledì. Arriveranno regole specifiche per ospedali, carceri e uffici, e un piano contro possibili attacchi informatici."
+  },
+  {
+   "pagina": "Media Positivo",
+   "cat": "Notizie",
+   "titolo": "Sei gesti gentili per la Giornata della gentilezza",
+   "riassunto": "La ricorrenza nasce nel 1998: Media Positivo racconta sei piccoli gesti gentili finiti sui giornali negli ultimi mesi, come un oggetto restituito o una mano tesa a chi resta indietro."
+  },
+  {
+   "pagina": "Will",
+   "cat": "Notizie",
+   "titolo": "«Se domani non torno», il film sulla storia di Giulia Cecchettin",
+   "riassunto": "Will ha visto il film tratto dal libro «Cara Giulia», scritto dal padre Gino Cecchettin con Marco Franzoso, dopo il femminicidio della figlia."
+  },
+  {
+   "pagina": "La Gazzetta dello Sport",
+   "cat": "Calcio",
+   "titolo": "Frattesi segna alla Francia e ricorda Inter-Barcellona",
+   "riassunto": "Dopo il gol a San Siro il centrocampista ha scherzato sui social: «Quella porta ha visto altri gol carini», alludendo al suo gol in Champions."
+  },
+  {
+   "pagina": "Torcha",
+   "cat": "Notizie",
+   "titolo": "Sicilia, 30mila euro ai laureati con 110 e lode che restano",
+   "riassunto": "La Regione propone 10mila euro l'anno per tre anni ai migliori laureati degli atenei siciliani che mantengono la residenza, per frenare l'emigrazione dei giovani. Serve ancora il voto dell'Assemblea regionale. Il carosello riassume anche altre notizie del giorno."
+  },
+  {
+   "pagina": "Fabrizio Romano",
+   "cat": "Calcio",
+   "titolo": "Spagna, 11 vittorie di fila e 43 partite senza sconfitte",
+   "riassunto": "La nazionale campione del mondo ed europea continua a non perdere."
+  },
+  {
+   "pagina": "Geopop",
+   "cat": "Notizie",
+   "titolo": "Perché lo sbadiglio è contagioso",
+   "riassunto": "Geopop spiega perché vedere qualcuno sbadigliare ci fa sbadigliare, e perché non succede in tutte le specie: dipende da come il cervello gestisce i comportamenti sociali."
+  },
+  {
+   "pagina": "Skuola.net",
+   "cat": "Università",
+   "titolo": "Corso STEM al liceo: precedenza alle ragazze",
+   "riassunto": "Un liceo di Vimercate dà priorità alle studentesse se i posti per il corso di matematica e fisica non bastano. Una preside interpellata da Skuola.net la ritiene una scelta legittima per avvicinare le ragazze alle materie scientifiche, dove sono ancora poche."
+  },
+  {
+   "pagina": "Fabrizio Romano",
+   "cat": "Calcio",
+   "titolo": "Pochettino allo United, è fatta",
+   "riassunto": "Il video annuncia con il classico «Here we go» di Fabrizio Romano l'accordo tra Pochettino e il Manchester United."
+  },
+  {
+   "pagina": "La Gazzetta dello Sport",
+   "cat": "Calcio",
+   "titolo": "Nations League, Italia in testa: tutto all'ultima giornata",
+   "riassunto": "Azzurri e Francia sono a 10 punti, il Belgio a 9: chi andrà ai quarti si decide nell'ultima partita."
+  },
+  {
+   "pagina": "433",
+   "cat": "Calcio",
+   "titolo": "Modrić e Bellingham di nuovo insieme",
+   "riassunto": "Foto dell'abbraccio tra i due ex compagni del Real Madrid, ritrovatisi da avversari in nazionale."
+  },
+  {
+   "pagina": "Skuola.net",
+   "cat": "Risate",
+   "titolo": "La nonna italiana che mette i calzini a una neonata straniera",
+   "riassunto": "Uno youtuber canadese in viaggio in Italia ha raccontato di una signora sconosciuta che, vedendo la figlia senza calzini, glieli ha messi e l'ha presa in braccio, senza capire una parola l'uno dell'altra."
+  },
+  {
+   "pagina": "Worldy Sport",
+   "cat": "Calcio",
+   "titolo": "Italia-Francia 3-1 in Nations League",
+   "riassunto": "Doppietta di Pio Esposito e gol di Frattesi: gli azzurri battono la Francia con una prestazione di carattere."
+  },
+  {
+   "pagina": "433",
+   "cat": "Calcio",
+   "titolo": "Spagna, 43 partite senza sconfitte: record mondiale",
+   "riassunto": "È la serie più lunga di sempre per una nazionale maschile: supera le 37 gare dell'Italia di Mancini. Nel frattempo la Spagna ha vinto Europeo 2024 e Mondiale 2026."
+  },
+  {
+   "pagina": "Calciatori Brutti",
+   "cat": "Calcio",
+   "titolo": "Italia batte Francia, come sempre",
+   "riassunto": "Per Calciatori Brutti il Mancio ha superato la Francia di Zidane con una squadra piena di esordienti: una rimonta che dà speranza per il futuro."
+  },
+  {
+   "pagina": "433",
+   "cat": "Calcio",
+   "titolo": "L'Italia infligge alla Francia di Zidane la prima sconfitta",
+   "riassunto": "Il riepilogo della serata di nazionali: Pio Esposito arriva a 9 gol in 14 partite, mentre Harry Kane segna con l'Inghilterra dopo aver mostrato il Pallone d'Oro a Wembley."
+  },
+  {
+   "pagina": "Sapienza",
+   "cat": "Università",
+   "titolo": "Sapienza, mancano 4 giorni alle elezioni studentesche",
+   "riassunto": "Oltre ai rappresentanti negli organi centrali, gli studenti votano online quelli nelle assemblee di facoltà. Il post elenca i posti per ogni facoltà e le otto liste in corsa."
+  },
+  {
+   "pagina": "Sapienza",
+   "cat": "Università",
+   "titolo": "Gli auguri della Sapienza ai nuovi laureati",
+   "riassunto": "L'ateneo festeggia i laureati degli ultimi giorni e ricondivide il messaggio di uno di loro, che racconta i sacrifici e i dubbi superati per arrivare al traguardo."
+  },
+  {
+   "pagina": "Sapienza Futura",
+   "cat": "Università",
+   "titolo": "Sapienza Futura: 70 nuovi parcheggi al Sant'Andrea",
+   "riassunto": "L'associazione studentesca rivendica l'arrivo di 70 posti auto per gli studenti dell'ospedale universitario e chiede il voto alle elezioni del 16-20 novembre."
+  },
+  {
+   "pagina": "Skuola.net",
+   "cat": "Risate",
+   "titolo": "Il disegno del principe George finisce su una rivista",
+   "riassunto": "Il figlio tredicenne di William ha disegnato con le matite colorate un martin pescatore, pubblicato su Country Life nel numero curato dal padre. Segue le orme del nonno, re Carlo, anche lui appassionato di pittura."
+  },
+  {
+   "pagina": "Sapienza",
+   "cat": "Università",
+   "titolo": "Alla Sapienza una mostra sulla nonviolenza",
+   "riassunto": "Nella facoltà di Lettere 22 pannelli raccontano donne e uomini che hanno combattuto ingiustizie e discriminazioni senza violenza. La mostra è curata dal polo museale dell'ateneo con l'associazione Energia per i diritti umani."
+  },
+  {
+   "pagina": "Geopop",
+   "cat": "Notizie",
+   "titolo": "Perché tutti parlano di GTA VI",
+   "riassunto": "Geopop spiega in un video perché l'uscita del nuovo Grand Theft Auto è un evento così atteso."
+  },
+  {
+   "pagina": "Factanza",
+   "cat": "Notizie",
+   "titolo": "Parlamento Ue: voto per delega alle eurodeputate madri",
+   "riassunto": "Le europarlamentari incinte o appena diventate mamme potranno votare a distanza delegando un collega. La misura deve ora essere approvata da ogni Stato membro."
+  },
+  {
+   "pagina": "Alessandro Beloli",
+   "cat": "Notizie",
+   "titolo": "Lunghi viaggi in auto elettrica: davvero così difficili?",
+   "riassunto": "Il divulgatore analizza con dati alla mano autonomia, tempi di ricarica e colonnine, senza nascondere i limiti. Il video è una collaborazione pubblicitaria con Alperia."
+  },
+  {
+   "pagina": "Skuola.net",
+   "cat": "Università",
+   "titolo": "Allarme bomba: giusto non far uscire gli studenti?",
+   "riassunto": "In una scuola nessuno, nemmeno i maggiorenni, è stato lasciato uscire durante l'allarme. Gli studenti protestavano, ma secondo la presidente dei presidi del Lazio la scuola ha agito correttamente."
+  },
+  {
+   "pagina": "CNC Media",
+   "cat": "Notizie",
+   "titolo": "Jensen Huang lascia Nvidia: cosa rischiano lui e l'azienda",
+   "riassunto": "Il crollo del titolo ha ridotto il patrimonio del fondatore di oltre 16 miliardi di dollari, e secondo Forbes un divorzio potrebbe costargli circa 75 miliardi. Nvidia, guidata ad interim da Colette Kress, deve ora conservare la fiducia degli investitori."
+  },
+  {
+   "pagina": "Aliseo",
+   "cat": "Notizie",
+   "titolo": "El Salvador manda i soldati ad Haiti",
+   "riassunto": "L'operazione è partita per recuperare quattro tecnici salvadoregni rapiti, ma Bukele punta più in alto: esportare ad Haiti il suo modello contro le gang. Il video si chiede se funzionerà."
+  },
+  {
+   "pagina": "DAZN Italia",
+   "cat": "Calcio",
+   "titolo": "2013 contro 2026",
+   "riassunto": "Un confronto per immagini tra due momenti a tredici anni di distanza, senza altro testo: sfoglialo qui sotto."
+  },
+  {
+   "pagina": "Worldy",
+   "cat": "Notizie",
+   "titolo": "Il ministro Valditara chiede il ritiro di un libro di storia",
+   "riassunto": "Il manuale Laterza «Trame del tempo 3» contiene passaggi che collegano Fratelli d'Italia all'eredità del fascismo. La polemica era nata nel 2025; l'Associazione editori ha chiarito di non avere il compito di controllare i testi."
+  },
+  {
+   "pagina": "Nova Lectio",
+   "cat": "Notizie",
+   "titolo": "Nvidia, si chiude l'era di Jensen Huang",
+   "riassunto": "Il cofondatore lascia l'azienda simbolo dell'intelligenza artificiale dopo le rivelazioni su una relazione con una manager sospettata di legami con l'intelligence cinese. Le accuse sono ancora da verificare."
+  },
+  {
+   "pagina": "Sapienza Futura",
+   "cat": "Università",
+   "titolo": "Sapienza Futura chiede il voto alle elezioni",
+   "riassunto": "L'associazione studentesca promette di accompagnare gli studenti dal primo giorno al lavoro e invita a votarla dal 16 al 20 novembre."
+  },
+  {
+   "pagina": "Calciatori Brutti",
+   "cat": "Calcio",
+   "titolo": "I finali di carriera più strani dei calciatori",
+   "riassunto": "Una galleria ironica di campioni che hanno chiuso la carriera in campionati lontani o improbabili."
+  },
+  {
+   "pagina": "Will",
+   "cat": "Notizie",
+   "titolo": "Greta Thunberg torna alla conferenza sul clima",
+   "riassunto": "Alla COP31 di Antalya, in Turchia, l'attivista è intervenuta dopo cinque anni di assenza insieme ad altri attivisti sull'ingiustizia climatica. È la conferenza con più iscritti di sempre: 92mila."
+  },
+  {
+   "pagina": "TechDale",
+   "cat": "Tech e IA",
+   "titolo": "Nvidia, Huang lascia dopo 33 anni",
+   "riassunto": "Il consiglio ha annunciato le dimissioni immediate del fondatore; Colette Kress guida l'azienda mentre si cerca un successore."
+  },
+  {
+   "pagina": "Factanza",
+   "cat": "Notizie",
+   "titolo": "Factanza lancia il corso «AI per umani»",
+   "riassunto": "Un corso per capire cosa delegare all'intelligenza artificiale e automatizzare le attività ripetitive, pensato anche per chi parte da zero."
+  },
+  {
+   "pagina": "DiSCo Lazio",
+   "cat": "Università",
+   "titolo": "Sicurezza stradale: quanto siamo consapevoli dei rischi?",
+   "riassunto": "Un ricercatore di Ingegneria dei trasporti della Sapienza parla dei pericoli quotidiani in strada e di come cambierà la mobilità in città."
+  },
+  {
+   "pagina": "CNC Media",
+   "cat": "Notizie",
+   "titolo": "Allarmi bomba: dalle scuole evacuate ai meme",
+   "riassunto": "Le email di minaccia hanno fermato le lezioni e mobilitato la polizia, mentre una preside milanese scopriva online che il mittente era già segnalato come spam. Basta una lista di indirizzi per creare disagi reali."
+  },
+  {
+   "pagina": "Calciatori Brutti",
+   "cat": "Calcio",
+   "titolo": "La Juventus di dieci anni fa",
+   "riassunto": "Un ricordo della squadra che vinceva tutto in Italia e faceva paura in Europa, con Dybala, Higuain, Mandzukic e Cuadrado insieme."
+  },
+  {
+   "pagina": "DAZN Italia",
+   "cat": "Calcio",
+   "titolo": "Pio Esposito contro Cisse: chi segnerà di più?",
+   "riassunto": "DAZN mette a confronto i due giovani attaccanti e annuncia la sua trasmissione del lunedì sulla Serie A."
+  },
+  {
+   "pagina": "Geopop",
+   "cat": "Notizie",
+   "titolo": "Bonus Donne 2026: meno contributi per chi assume",
+   "riassunto": "In Italia metà delle donne in età da lavoro non lavora: siamo ultimi nell'Ue. Con il bonus, un'azienda che assume a tempo indeterminato alcune categorie di donne non paga parte dei contributi. Collaborazione pubblicitaria."
+  },
+  {
+   "pagina": "Sapienza",
+   "cat": "Università",
+   "titolo": "Al via il nuovo ciclo del dottorato in Peace Studies",
+   "riassunto": "Il dottorato nazionale coordinato dalla Sapienza ammette 46 nuovi studenti, per un totale di 130, che studiano i conflitti e come prevenirli unendo scienze umane, giuridiche ed economiche."
+  },
+  {
+   "pagina": "Worldy Sport",
+   "cat": "Calcio",
+   "titolo": "Nadal: tre cose da cambiare nel tennis",
+   "riassunto": "In un'intervista ad Associated Press il campione spagnolo critica il sistema di classifica, la durata dei tornei Masters 1000 e il troppo cemento, duro per il fisico dei giocatori."
+  },
+  {
+   "pagina": "Worldy",
+   "cat": "Notizie",
+   "titolo": "Digital Fairness Act: le nuove regole Ue contro le pratiche scorrette online",
+   "riassunto": "La Commissione europea ha presentato la proposta per tutelare i consumatori dalle pratiche commerciali ingannevoli, soprattutto online. Ora passa a Parlamento e Consiglio; le imprese stimano costi di 680 milioni l'anno."
+  },
+  {
+   "pagina": "Will",
+   "cat": "Notizie",
+   "titolo": "Parlare di soldi in coppia",
+   "riassunto": "Il denaro è la seconda causa di rottura delle coppie, ma spesso non se ne parla. La conduttrice del podcast Grano suggerisce alcune semplici regole."
+  },
+  {
+   "pagina": "Francesco Oggiano",
+   "cat": "Notizie",
+   "titolo": "Video di Francesco Oggiano",
+   "riassunto": "L'autore condivide una canzone che trova molto attuale, senza dire quale: guarda il video qui sotto."
+  },
+  {
+   "pagina": "Nova Lectio",
+   "cat": "Notizie",
+   "titolo": "Bangladesh, proteste dei lavoratori tessili per i salari",
+   "riassunto": "Da fine ottobre migliaia di operai chiedono di portare il salario minimo a circa 240 dollari al mese. Gli scontri con la polizia, intorno a Dacca, hanno causato blocchi e incendi."
+  },
+  {
+   "pagina": "AI Facile",
+   "cat": "Tech e IA",
+   "titolo": "Duemila robot con il laser proteggono i salmoni",
+   "riassunto": "I robot dell'azienda norvegese Stingray restano in acqua con i pesci: le telecamere e l'IA riconoscono i pidocchi di mare e un laser verde li colpisce senza ferire il salmone."
+  },
+  {
+   "pagina": "Sapienza Futura",
+   "cat": "Università",
+   "titolo": "Torneo di Clash of Clans tra facoltà della Sapienza",
+   "riassunto": "Torna la sfida tra squadre di ingegneri, giuristi ed economisti nel videogioco: le iscrizioni sono aperte."
+  },
+  {
+   "pagina": "Worldy Sport",
+   "cat": "Calcio",
+   "titolo": "Verstappen commenta il caso Hamilton-Leclerc",
+   "riassunto": "Il pilota olandese ha detto la sua sull'episodio tra i due ferraristi in Messico, gara che poi ha vinto lui."
+  },
+  {
+   "pagina": "Worldy",
+   "cat": "Notizie",
+   "titolo": "Meloni sugli allarmi bomba: nessun pericolo concreto",
+   "riassunto": "Dopo le minacce dell'11 novembre la premier ha riunito ministri e servizi segreti: secondo lei servono a creare paura e caos, ma ogni segnalazione verrà controllata."
+  },
+  {
+   "pagina": "Media Positivo",
+   "cat": "Notizie",
+   "titolo": "Il ponte sul mare più lungo del mondo",
+   "riassunto": "Inaugurato in Cina nel 2018, collega Hong Kong, Zhuhai e Macao con un viadotto, quattro isole artificiali e un tunnel sottomarino. È costato circa 17 miliardi di euro."
+  },
+  {
+   "pagina": "Torcha",
+   "cat": "Notizie",
+   "titolo": "Proposte per vietare il telemarketing",
+   "riassunto": "Emendamenti di Lega e Forza Italia al ddl Concorrenza vorrebbero vietare chiamate e messaggi commerciali; FdI propone un operatore umano entro 150 secondi e l'obbligo di dichiarare l'uso dell'IA. Le modifiche non sono ancora approvate."
+  },
+  {
+   "pagina": "Geopop",
+   "cat": "Notizie",
+   "titolo": "Il mondo non finirà il 13 novembre",
+   "riassunto": "Geopop smonta la bufala sulla fine del mondo e spiega da dove è nata."
+  },
+  {
+   "pagina": "Sapienza",
+   "cat": "Università",
+   "titolo": "Aperitivi tra scienza e arte sulla biodiversità",
+   "riassunto": "La Sapienza organizza due incontri pubblici, con traduzione nella lingua dei segni, e una mostra di 31 opere al Museo di Zoologia sulla tutela delle specie e il rapporto tra uomo e natura."
+  }
+ ],
+ "da_non_perdere": [
+  {
+   "pagina": "Opere d'arte",
+   "titolo": "I fari e le rocche disegnati da Victor Hugo",
+   "riassunto": "L'autore dei «Miserabili» era anche un disegnatore notevole: con inchiostro e gouache faceva emergere fari e castelli dall'ombra. Il carosello raccoglie otto suoi disegni, tra cui i fari dei Casquets e di Eddystone del 1866."
+  },
+  {
+   "pagina": "Nasce Cresce Ignora",
+   "titolo": "Il 20 settembre è il giorno in cui nascono più persone",
+   "riassunto": "Un'analisi su 487 milioni di nascite in 29 Paesi: settembre domina la classifica, mentre Natale è il giorno più raro, con il 26,8% di nascite in meno. Pesano feste e parti programmati."
+  },
+  {
+   "pagina": "035 Zerotrecinque",
+   "titolo": "Too Cool, il kitsch che spopola in Cina",
+   "riassunto": "In Cina i giovani riscoprono la grafica satura e i font esagerati dei primi anni Duemila: lo chiamano «tuku», cioè «tamarro ma cool», e ora lo usano anche i marchi nelle pubblicità."
+  },
+  {
+   "pagina": "AI Facile",
+   "titolo": "Duemila robot con il laser proteggono i salmoni",
+   "riassunto": "I robot dell'azienda norvegese Stingray restano in acqua con i pesci: le telecamere e l'IA riconoscono i pidocchi di mare e un laser verde li colpisce senza ferire il salmone."
+  }
+ ],
+ "pagine_silenziose": [
+  {
+   "pagina": "Wired Italia",
+   "giorni_senza_post": 135,
+   "mai_visto": false
+  },
+  {
+   "pagina": "Not Just Veliu",
+   "giorni_senza_post": 143,
+   "mai_visto": false
+  },
+  {
+   "pagina": "Zenxogg",
+   "giorni_senza_post": 115,
+   "mai_visto": false
+  }
+ ]
+}
