@@ -1,6 +1,7 @@
 {
  "categorie": [
-  "Notizie",
+  "Mondo",
+  "Italia",
   "Napoli",
   "Università",
   "Calcio",
@@ -9,147 +10,148 @@
   "Cultura",
   "Design e marketing",
   "Spettacolo e stile",
-  "Risate",
-  "Benessere"
+  "Divertimento e meme",
+  "Benessere",
+  "Estetica"
  ],
  "pagine": [
   {
    "u": "cnc_media",
    "nome": "CNC Media",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": true
   },
   {
    "u": "corriere",
    "nome": "Corriere della Sera",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": true
   },
   {
    "u": "larepubblica",
    "nome": "la Repubblica",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": true
   },
   {
    "u": "tgcom24",
    "nome": "Tgcom24",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": true
   },
   {
    "u": "difesa.italia",
    "nome": "Difesa Italia",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "factanza",
    "nome": "Factanza",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "will_ita",
    "nome": "Will",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": true
   },
   {
    "u": "torcha",
    "nome": "Torcha",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "novalectio",
    "nome": "Nova Lectio",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "worldy.it",
    "nome": "Worldy",
-   "cat": "Notizie",
+   "cat": "Mondo",
    "briefing": true,
    "alto": false
   },
   {
    "u": "fraoggiano",
    "nome": "Francesco Oggiano",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "simona_ravizza",
    "nome": "Simona Ravizza",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "maranga9000",
    "nome": "Mattia Marangon",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "geopop",
    "nome": "Geopop",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "alessandro.beloli",
    "nome": "Alessandro Beloli",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "aliseo",
    "nome": "Aliseo",
-   "cat": "Notizie",
+   "cat": "Mondo",
    "briefing": true,
    "alto": false
   },
   {
    "u": "matteogracis",
    "nome": "Matteo Gracis",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "mediapositivo",
    "nome": "Media Positivo",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "olimpia.peroni",
    "nome": "Olimpia Peroni",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
   {
    "u": "h.omosapiens",
    "nome": "(h)Omo Sapiens",
-   "cat": "Notizie",
+   "cat": "Italia",
    "briefing": true,
    "alto": false
   },
@@ -501,7 +503,8 @@
    "nome": "Opere d'arte",
    "cat": "Cultura",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "robertomercadini",
@@ -578,7 +581,8 @@
    "nome": "Il sussurro del mondo",
    "cat": "Cultura",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "avv_giuseppe_di_palo",
@@ -599,7 +603,8 @@
    "nome": "Fubiz",
    "cat": "Cultura",
    "briefing": false,
-   "alto": true
+   "alto": true,
+   "estetica": true
   },
   {
    "u": "marketing.ignorante",
@@ -737,58 +742,62 @@
   {
    "u": "ember.lite",
    "nome": "Emberlite",
-   "cat": "Spettacolo e stile",
+   "cat": "Estetica",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "vagabondiary",
    "nome": "Vagabondiary",
-   "cat": "Spettacolo e stile",
+   "cat": "Estetica",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "nascecresceignora",
    "nome": "Nasce Cresce Ignora",
-   "cat": "Risate",
+   "cat": "Divertimento e meme",
    "briefing": false,
    "alto": false
   },
   {
    "u": "nascecresceinforma",
    "nome": "Nasce Cresce Informa",
-   "cat": "Risate",
+   "cat": "Divertimento e meme",
    "briefing": false,
    "alto": false
   },
   {
    "u": "quelmomento",
    "nome": "Quel Momento",
-   "cat": "Risate",
+   "cat": "Divertimento e meme",
    "briefing": false,
    "alto": false
   },
   {
    "u": "trash_italiano",
    "nome": "Trash Italiano",
-   "cat": "Risate",
+   "cat": "Divertimento e meme",
    "briefing": false,
    "alto": true
   },
   {
    "u": "agnod3",
    "nome": "Agnod",
-   "cat": "Benessere",
+   "cat": "Estetica",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "zenxogg",
    "nome": "Zenxogg",
-   "cat": "Benessere",
+   "cat": "Estetica",
    "briefing": false,
-   "alto": false
+   "alto": false,
+   "estetica": true
   },
   {
    "u": "progettohappiness",

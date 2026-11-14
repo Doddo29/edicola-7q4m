@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """AutYG - passo 2: unisce i post (work/raw.json) con i testi di Claude (work/enrich.json).
 Scrive data.json (il sito), briefing.json (per il Briefing personale delle 5) e aggiorna visti.json.
-enrich.json = {"ID": {"title":..., "summary":..., "cat"?:..., "story"?:..., "tags"?:[...],
+enrich.json = {"ID": {"title":..., "summary":... (anche vuoti se il post non dice niente), "cat"?:..., "story"?:..., "tags"?:[...],
                       "caption"?: testo (obbligatorio se il post è in inglese: traduzione), "top"?: true, "skip"?: true},
              "_storie": [{"titolo":..., "emoji":..., "peso": 1-3, "post": [ID, ...]}]}"""
 import json, os, sys, time, datetime as dt
@@ -20,7 +20,7 @@ for p in raw:
     cap = e.get('caption') or p['caption']
     posts.append({'id': p['id'], 'page': p['page'], 'pageName': p['pageName'], 'time': p['time'], 'url': p['url'],
                   'media': p['media'], 'cat': e.get('cat') or p['cat'], 'story': e.get('story') or '',
-                  'title': e['title'], 'summary': e['summary'], 'caption': cap, 'tags': tags,
+                  'title': (e.get('title') or '').strip(), 'summary': (e.get('summary') or '').strip(), 'caption': cap, 'tags': tags,
                   'lang': e.get('lang') or p['lang'], 'briefing': p['briefing']})
 if missing:
     print('ATTENZIONE: post senza testi (esclusi):', len(missing), missing[:10])
@@ -47,8 +47,10 @@ if punto:
     storico[now.strftime('%Y-%m-%d')] = [f"{s.get('titolo')}: {n.get('titolo')}" for s in punto.get('sezioni', []) for n in s.get('notizie', [])]
     cut10 = (now - dt.timedelta(days=10)).strftime('%Y-%m-%d')
     json.dump({k: v for k, v in storico.items() if k >= cut10}, open(sp, 'w'), ensure_ascii=False, indent=1, sort_keys=True)
+ep = os.path.join(W, 'estetica.json')
+estetica = json.load(open(ep)) if os.path.exists(ep) and os.path.getmtime(ep) > time.time() - 20 * 3600 else []
 data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats, 'stories': stories, 'punto': punto,
-        'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
+        'estetica': estetica, 'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
 json.dump(data, open(os.path.join(R, 'data.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 # monitoraggio pagine
 stato = json.load(open(os.path.join(T, 'stato.json')))
@@ -71,4 +73,4 @@ for p in raw: visti[p['id']] = data['edition']
 cut = (now - dt.timedelta(days=7)).strftime('%Y-%m-%d')
 visti = {k: v for k, v in visti.items() if v >= cut}
 json.dump(visti, open(vp, 'w'), indent=0, sort_keys=True)
-print(f"edizione {data['edition']}: {len(posts)} post, {brief['pagine']} pagine, {len(brief['notizie_dalle_pagine'])} per il briefing, {len(sil)} pagine silenziose")
+print(f"edizione {data['edition']}: {len(posts)} post, {len(estetica)} aesthetic, {brief['pagine']} pagine, {len(brief['notizie_dalle_pagine'])} per il briefing, {len(sil)} pagine silenziose")

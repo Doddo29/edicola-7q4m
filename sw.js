@@ -1,7 +1,7 @@
 /* AutYG – service worker: fa aprire l'app subito e anche senza rete.
    La pagina arriva sempre dalla rete quando c'è (così gli aggiornamenti si vedono subito);
    se la rete manca o è lenta, usa la copia salvata. data.json lo gestisce la pagina. */
-const V = 'autyg-shell-v2';
+const V = 'autyg-shell-v3';
 const SHELL = ['./', 'manifest.webmanifest', 'icon-192.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
