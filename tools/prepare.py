@@ -64,12 +64,22 @@ def lang(c):
     en = sum(x in EN for x in w); it = sum(x in IT for x in w)
     return 'en' if en > it * 1.5 and en >= 3 else 'it'
 
+def dims(c):
+    """Larghezza e altezza originali, se Apify le dà (servono all'app per il formato del riquadro)."""
+    for a, b in (('original_width', 'original_height'), ('width', 'height'), ('dimensions.width', 'dimensions.height')):
+        w, h = g(c, a), g(c, b)
+        try:
+            w, h = int(w), int(h)
+            if w > 0 and h > 0: return {'w': w, 'h': h}
+        except (TypeError, ValueError): pass
+    return {}
+
 def media(x):
     mt = g(x, 'media_type')
     if mt == 8 and x.get('carousel_media'):
-        return [({'t': 'v', 'src': c['video_url'], 'poster': c.get('image_url')} if c.get('video_url') else {'t': 'i', 'src': c.get('image_url')}) for c in x['carousel_media'] if c.get('image_url') or c.get('video_url')]
-    if x.get('video_url'): return [{'t': 'v', 'src': x['video_url'], 'poster': x.get('image_url')}]
-    return [{'t': 'i', 'src': x.get('image_url')}]
+        return [dict(({'t': 'v', 'src': c['video_url'], 'poster': c.get('image_url')} if c.get('video_url') else {'t': 'i', 'src': c.get('image_url')}), **dims(c)) for c in x['carousel_media'] if c.get('image_url') or c.get('video_url')]
+    if x.get('video_url'): return [dict({'t': 'v', 'src': x['video_url'], 'poster': x.get('image_url')}, **dims(x))]
+    return [dict({'t': 'i', 'src': x.get('image_url')}, **dims(x))]
 
 def main(files):
     items = []

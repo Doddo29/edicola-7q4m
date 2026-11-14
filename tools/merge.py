@@ -47,10 +47,21 @@ if punto:
     storico[now.strftime('%Y-%m-%d')] = [f"{s.get('titolo')}: {n.get('titolo')}" for s in punto.get('sezioni', []) for n in s.get('notizie', [])]
     cut10 = (now - dt.timedelta(days=10)).strftime('%Y-%m-%d')
     json.dump({k: v for k, v in storico.items() if k >= cut10}, open(sp, 'w'), ensure_ascii=False, indent=1, sort_keys=True)
+fresh = lambda f: os.path.exists(f) and os.path.getmtime(f) > time.time() - 20 * 3600
 ep = os.path.join(W, 'estetica.json')
-estetica = json.load(open(ep)) if os.path.exists(ep) and os.path.getmtime(ep) > time.time() - 20 * 3600 else []
+est = json.load(open(ep)) if fresh(ep) else []
+estetica, frase = (est, None) if isinstance(est, list) else (est.get('items') or [], est.get('frase'))
+# la frase scelta da Claude (tools/work/frase.json = {"id", "testo"}) vince su quella automatica
+fp, cp = os.path.join(W, 'frase.json'), os.path.join(W, 'frase_candidati.json')
+if fresh(fp):
+    fj = json.load(open(fp)); cand = json.load(open(cp)) if fresh(cp) else []
+    pick = next((c for c in cand if c['id'] == fj.get('id')), None) or (frase if frase and frase['id'] == fj.get('id') else None)
+    if pick:
+        frase = {k: v for k, v in pick.items() if k != 'didascalia'}
+        if fj.get('testo'): frase['testo'] = fj['testo']
+        estetica = [x for x in estetica if x['id'] != frase['id']]
 data = {'edition': now.strftime('%Y-%m-%d'), 'updated': now.isoformat(timespec='minutes'), 'cats': cats, 'stories': stories, 'punto': punto,
-        'estetica': estetica, 'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
+        'estetica': estetica, 'frase': frase, 'posts': [{k: v for k, v in p.items() if k != 'briefing'} for p in posts]}
 json.dump(data, open(os.path.join(R, 'data.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 # monitoraggio pagine
 stato = json.load(open(os.path.join(T, 'stato.json')))
@@ -73,4 +84,4 @@ for p in raw: visti[p['id']] = data['edition']
 cut = (now - dt.timedelta(days=7)).strftime('%Y-%m-%d')
 visti = {k: v for k, v in visti.items() if v >= cut}
 json.dump(visti, open(vp, 'w'), indent=0, sort_keys=True)
-print(f"edizione {data['edition']}: {len(posts)} post, {len(estetica)} aesthetic, {brief['pagine']} pagine, {len(brief['notizie_dalle_pagine'])} per il briefing, {len(sil)} pagine silenziose")
+print(f"edizione {data['edition']}: {len(posts)} post, {len(estetica)} aesthetic, frase {'sì' if frase else 'no'}, {brief['pagine']} pagine, {len(brief['notizie_dalle_pagine'])} per il briefing, {len(sil)} pagine silenziose")
